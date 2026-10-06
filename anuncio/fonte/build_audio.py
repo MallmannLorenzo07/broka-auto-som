@@ -197,12 +197,10 @@ place(sfx, whoosh(.4, 1000, 5000), a2o(21.3), .25)
 vo = np.zeros((L, 2))
 for m in meta:
     x, sr = sf.read(f'{VO}/{m["key"]}.wav')
-    x = signal.resample_poly(x, 147, 80)            # 24 kHz -> 44,1 kHz
-    x = hp(x, 90)
-    x = x / (np.abs(x).max() + 1e-9)
-    x = np.tanh(x * 2.2) / np.tanh(2.2)              # compressão leve
-    place(vo, x, m["out"], .62)
-vo = reverb(vo, .5, .06)
+    if sr != SR: x = signal.resample_poly(x, SR, sr)
+    x = x / (np.abs(x).max() + 1e-9)               # o tratamento de locutor já foi feito no vo.py
+    place(vo, x, m["out"], .95)
+vo = reverb(vo, .4, .03)                       # quase seco, como estúdio de locução
 
 # ducking: a música abaixa quando o locutor fala
 e = np.abs(vo).max(1)
