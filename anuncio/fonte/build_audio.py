@@ -3,7 +3,8 @@ import json, sys, numpy as np, soundfile as sf
 from scipy import signal
 
 SP = sys.argv[1]
-VO = f"{SP}/audio/vo"
+VO = sys.argv[2] if len(sys.argv) > 2 else f"{SP}/audio/vo"
+TAG = sys.argv[3] if len(sys.argv) > 3 else ""
 SR = 44100
 FPS = 30
 DUR_ANIM = 24.0
@@ -37,7 +38,7 @@ OUT_DUR = float(KO[-1])
 def a2o(a): return float(np.interp(a, KA, KO))
 def o2a(o): return float(np.interp(o, KO, KA))
 N = int(round(OUT_DUR * FPS))
-json.dump([round(o2a(i / FPS), 4) for i in range(N)], open(f"{SP}/ad/timeline.json", "w"))
+json.dump([round(o2a(i / FPS), 4) for i in range(N)], open(f"{SP}/ad/timeline{TAG}.json", "w"))
 print("duração final: %.2f s, %d quadros" % (OUT_DUR, N))
 for m in meta: print(f'  {m["key"]}: {m["out"]:.2f}s  "{m["text"]}"')
 
@@ -198,7 +199,7 @@ vo = np.zeros((L, 2))
 for m in meta:
     x, sr = sf.read(f'{VO}/{m["key"]}.wav')
     if sr != SR: x = signal.resample_poly(x, SR, sr)
-    x = x / (np.abs(x).max() + 1e-9)               # o tratamento de locutor já foi feito no vo.py
+    x = x / (np.sqrt((x ** 2).mean()) + 1e-9) * .2  # nivela as falas pelo volume médio (tratamento já feito no vo.py)
     place(vo, x, m["out"], .95)
 vo = reverb(vo, .4, .03)                       # quase seco, como estúdio de locução
 
@@ -210,7 +211,7 @@ duck = 1 - .68 * e
 mix = music * duck[:, None] * .7 + sfx * .9 + vo
 mix = mix[: int(OUT_DUR * SR)]
 mix /= np.abs(mix).max() / .89
-sf.write(f"{SP}/ad/mix.wav", mix, SR, subtype="PCM_24")
+sf.write(f"{SP}/ad/mix{TAG}.wav", mix, SR, subtype="PCM_24")
 sf.write(f"{SP}/ad/music_only.wav", (music * .85)[: int(OUT_DUR * SR)] / (np.abs(music).max() + 1e-9) * .8, SR, subtype="PCM_16")
 print("áudio ok")
 
