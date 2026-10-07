@@ -1,20 +1,26 @@
-"""Áudio da vinheta de 30 s: narração (Piper, CC0) + trilha sintetizada aqui (pad, batida 100 BPM, riser, impacto, whooshes)."""
+"""Áudio da vinheta de 30 s: narração (Chatterbox Multilingual, MIT, voz clonada de narrador LibriVox em domínio público) + trilha sintetizada aqui (pad, batida 100 BPM, riser, impacto, whooshes)."""
 import wave, os, numpy as np
 D = os.path.dirname(os.path.abspath(__file__)); SR = 48000; DUR = 30.0; N = int(DUR * SR)
 t = np.arange(N) / SR
 def ler(f):
-    with wave.open(f) as w:
-        sr = w.getframerate(); x = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32) / 32768
-    x = np.interp(np.linspace(0, len(x) - 1, int(len(x) * SR / sr)), np.arange(len(x)), x)
-    nz = np.where(np.abs(x) > 0.01)[0]; return x[max(0, nz[0] - 200): nz[-1] + 1500]
+    import soundfile as sf
+    x, sr = sf.read(f, dtype='float32')
+    if x.ndim > 1: x = x.mean(1)
+    x = np.interp(np.linspace(0, len(x) - 1, int(len(x) * SR / sr)), np.arange(len(x)), x).astype(np.float32)
+    h = int(.05 * SR); e = np.array([np.sqrt(np.mean(x[j:j + h] ** 2)) for j in range(0, len(x), h)])
+    on = np.where(e > .01)[0]; ini, fim = on[0], on[-1]
+    for a, b in zip(on[:-1], on[1:]):      # pausa > 0,4 s seguida de pouco som (< 0,7 s) = respiração/ruído no fim: corta
+        if b - a > 8 and (on > a).sum() < 14: fim = a; break
+    x = x[max(0, ini * h - 1200): (fim + 1) * h + 2400].copy(); x[-2400:] *= np.linspace(1, 0, 2400)
+    return x / np.abs(x).max() * .9
 def put(dst, x, at, g=1.0):
     i = int(at * SR); n = min(len(x), N - i)
     if n > 0: dst[i:i + n] += x[:n] * g
 
 # narração
-VO = [0.8, 3.2, 6.8, 8.95, 13.35, 15.6, 18.2, 24.3, 26.05]
+VO = [0.8, 3.2, 6.8, 8.95, 13.3, 15.75, 18.2, 24.3, 26.05]
 voz = np.zeros(N, np.float32)
-for k, at in enumerate(VO): put(voz, ler(f'{D}/vo/{k}.wav'), at)
+for k, at in enumerate(VO): put(voz, ler(f'{D}/vo_cb/{k}.wav'), at)
 voz = np.tanh(voz * 1.7) / np.tanh(1.7)
 
 rng = np.random.default_rng(3)

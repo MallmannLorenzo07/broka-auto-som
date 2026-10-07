@@ -1,20 +1,26 @@
-"""Áudio da vinheta de 30 s: narração (Piper, CC0) + trilha sintetizada aqui (pad, batida 100 BPM, riser, impacto, whooshes)."""
+"""Áudio da vinheta de 30 s: narração (Chatterbox Multilingual, MIT, voz clonada de narrador LibriVox em domínio público) + trilha sintetizada aqui (pad, batida 100 BPM, riser, impacto, whooshes)."""
 import wave, os, numpy as np
 D = os.path.dirname(os.path.abspath(__file__)); SR = 48000; DUR = 30.0; N = int(DUR * SR)
 t = np.arange(N) / SR
 def ler(f):
-    with wave.open(f) as w:
-        sr = w.getframerate(); x = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32) / 32768
-    x = np.interp(np.linspace(0, len(x) - 1, int(len(x) * SR / sr)), np.arange(len(x)), x)
-    nz = np.where(np.abs(x) > 0.01)[0]; return x[max(0, nz[0] - 200): nz[-1] + 1500]
+    import soundfile as sf
+    x, sr = sf.read(f, dtype='float32')
+    if x.ndim > 1: x = x.mean(1)
+    x = np.interp(np.linspace(0, len(x) - 1, int(len(x) * SR / sr)), np.arange(len(x)), x).astype(np.float32)
+    h = int(.05 * SR); e = np.array([np.sqrt(np.mean(x[j:j + h] ** 2)) for j in range(0, len(x), h)])
+    on = np.where(e > .01)[0]; ini, fim = on[0], on[-1]
+    for a, b in zip(on[:-1], on[1:]):      # pausa > 0,4 s seguida de pouco som (< 0,7 s) = respiração/ruído no fim: corta
+        if b - a > 8 and (on > a).sum() < 14: fim = a; break
+    x = x[max(0, ini * h - 1200): (fim + 1) * h + 2400].copy(); x[-2400:] *= np.linspace(1, 0, 2400)
+    return x / np.abs(x).max() * .9
 def put(dst, x, at, g=1.0):
     i = int(at * SR); n = min(len(x), N - i)
     if n > 0: dst[i:i + n] += x[:n] * g
 
 # narração
-VO = [0.9, 3.3, 6.9, 12.0, 14.0, 17.1, 24.3]
+VO = [0.9, 3.3, 7.2, 12.1, 14.0, 16.9, 24.3]
 voz = np.zeros(N, np.float32)
-for k, at in enumerate(VO): put(voz, ler(f'{D}/vo/{k}.wav'), at)
+for k, at in enumerate(VO): put(voz, ler(f'{D}/vo_cb/{k}.wav'), at)
 voz = np.tanh(voz * 1.7) / np.tanh(1.7)
 
 rng = np.random.default_rng(3)
@@ -47,13 +53,13 @@ for k in range(int(DUR / B) + 1):
     batida = (3.0 <= tb < 12.0) or (16.8 <= tb < 22.2)
     if batida: put(ritmo, K, tb, .9)
     if batida and tb >= 6.6: put(ritmo, Hh, tb + B / 2, .55)
-    if 22.2 <= tb < 23.4: put(ritmo, K, tb, .5); put(ritmo, K, tb + B / 2, .45)   # aceleração antes do impacto
+    if 22.8 <= tb < 23.4: put(ritmo, K, tb, .5); put(ritmo, K, tb + B / 2, .45)   # aceleração antes do impacto
 # riser antes do clímax
 n = int(1.8 * SR); s = np.arange(n) / SR; x = rng.standard_normal(n).astype(np.float32)
 ris = np.zeros(n, np.float32); acc = 0.; c = np.linspace(.01, .6, n) ** 2
 for i in range(n): acc += c[i] * (x[i] - acc); ris[i] = acc
 ris = ris * (s / s[-1]) ** 2 * .9 + .25 * np.sin(2 * np.pi * np.cumsum(200 + 700 * (s / s[-1]) ** 2) / SR) * (s / s[-1]) ** 2
-sfx = np.zeros(N, np.float32); put(sfx, ris.astype(np.float32), 23.4 - 1.8)
+sfx = np.zeros(N, np.float32); put(sfx, ris[-int(.75 * SR):].astype(np.float32), 23.4 - .75)   # riser curto: não cobre o fim da fala
 # impactos
 def boom(g):
     n = int(2.2 * SR); s = np.arange(n) / SR; f = 32 + 60 * np.exp(-s * 6)
@@ -62,7 +68,8 @@ put(sfx, boom(1.0), 23.4); put(sfx, boom(.55), 13.95); put(sfx, boom(.4), 3.0)
 for c in [6.6, 8.85, 10.55, 12.0, 16.8]: put(sfx, whoosh(), c - .45, .28)
 
 envv = np.convolve(np.abs(voz), np.ones(12000) / 12000, 'same')
-duck = np.convolve(np.where(envv > .01, .45, 1.0), np.ones(16000) / 16000, 'same')
+ativo = np.convolve((envv > .01).astype(np.float32), np.ones(int(.45 * SR)))[:N] > 0   # segura o ducking 0,45 s após cada fala
+duck = np.convolve(np.where(ativo, .4, 1.0), np.ones(16000) / 16000, 'same')
 fade = np.clip(t / 1.0, 0, 1) * np.clip((DUR - t) / 1.6, 0, 1)
 musica = (pad * .16 + ritmo * .5) * duck
 mix = (voz * .95 + musica + sfx * .55) * fade
