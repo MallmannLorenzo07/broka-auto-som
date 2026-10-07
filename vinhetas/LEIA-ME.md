@@ -26,3 +26,7 @@
 - Falas escolhidas em `ktz/vo/` (as falas 4 e 14 ficam só na tela, para caber em ~1 min)
 - Versão ElevenLabs (voz Brian): `VODIR=vo_el ALVO=64 python3 ktz/motion/plano.py && VODIR=vo_el python3 ktz/motion/audio.py` (falas em `ktz/vo_el/`)
 - Para celular: áudio AAC-LC estéreo 44,1 kHz e vídeo H.264 Main 4.0 (`-profile:v main -level:v 4.0 -ar 44100 -ac 2 -movflags +faststart`)
+
+## VAGALUME (pitch de produto conceito, 60 s, voz ElevenLabs "Brian")
+- `vagalume/motion/`: `plano.py` → `audio.py` → `build.py`, depois `node motion/render.js $PWD/vagalume/motion/vagalume.html saida.mp4 vagalume/motion/mix.m4a 30`
+- Vaga-lumes desenhados em canvas como função do tempo (renderização quadro a quadro); lata em CSS.
