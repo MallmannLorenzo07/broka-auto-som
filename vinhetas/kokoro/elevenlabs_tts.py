@@ -5,7 +5,7 @@ Uso:
   python elevenlabs_tts.py gerar VOICE_ID saida_dir "fala 1" "fala 2" ...
 Gera saida_dir/0.wav, 1.wav ... (PCM 16 bits, 44,1 kHz) e imprime a duração de cada uma.
 """
-import os, sys, json, wave, urllib.request
+import os, sys, json, wave, subprocess, urllib.request
 
 KEY = os.environ.get('ELEVENLABS_API_KEY')
 if not KEY:
@@ -27,10 +27,11 @@ elif sys.argv[1] == 'gerar':
     voz, out, falas = sys.argv[2], sys.argv[3], sys.argv[4:]
     os.makedirs(out, exist_ok=True)
     for i, txt in enumerate(falas):
-        pcm = req(f'/text-to-speech/{voz}?output_format=pcm_44100', {
-            'text': txt, 'model_id': 'eleven_multilingual_v2', 'language_code': 'pt',
-            'voice_settings': {'stability': 0.55, 'similarity_boost': 0.8, 'style': 0.15, 'use_speaker_boost': True, 'speed': 0.95}},
-            accept='audio/pcm')
+        mp3 = req(f'/text-to-speech/{voz}?output_format=mp3_44100_128', {
+            'text': txt, 'model_id': os.environ.get('EL_MODEL', 'eleven_multilingual_v2'), 'language_code': os.environ.get('EL_LANG', 'pt'),
+            'voice_settings': {'stability': 0.5, 'similarity_boost': 0.8, 'style': 0.15, 'use_speaker_boost': True, 'speed': 0.95}},
+            accept='audio/mpeg')   # PCM exige plano Pro; MP3 vale no gratuito
+        pcm = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', '-', '-ac', '1', '-ar', '44100', '-f', 's16le', '-'], input=mp3, capture_output=True, check=True).stdout
         with wave.open(f'{out}/{i}.wav', 'wb') as w:
             w.setnchannels(1); w.setsampwidth(2); w.setframerate(44100); w.writeframes(pcm)
         print(i, round(len(pcm) / 2 / 44100, 2), txt)

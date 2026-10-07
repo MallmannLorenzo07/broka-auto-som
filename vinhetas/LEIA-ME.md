@@ -13,3 +13,9 @@
 - Gerar candidatos: `python kokoro/lote.py config.json` (veja `vozes`, `seeds`, `falas`; `out`/`refs` com caminhos absolutos)
 - Escolher a melhor tomada por fala (Whisper): `python3 kokoro/escolher.py config.json teaser_ped/vo_cb`
 - Falas finais em `teaser/vo_cb/` e `teaser_ped/vo_cb/`
+
+## ElevenLabs (plano gratuito)
+- No gratuito, a API só aceita as vozes padrão (vozes da biblioteca e Voice Design exigem plano pago). Usamos "Brian" (`nPczCjzI2devNBz1zQrb`) com `eleven_multilingual_v2`; o `eleven_v3` erra falas curtas (lê "Pê e Dê" em inglês).
+- `ELEVENLABS_API_KEY=... EL_MODEL=eleven_multilingual_v2 python3 kokoro/elevenlabs_tts.py gerar nPczCjzI2devNBz1zQrb teaser_ped/vo_el "fala 1" ...`
+- Mixar com essas falas: `VODIR=vo_el python3 teaser_ped/audio.py` (padrão `vo_cb` = Chatterbox)
+- Plano gratuito: uso não comercial e com crédito ao ElevenLabs.

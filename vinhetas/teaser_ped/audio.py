@@ -20,7 +20,7 @@ def put(dst, x, at, g=1.0):
 # narração
 VO = [0.8, 3.2, 6.8, 8.95, 13.3, 15.75, 18.2, 24.3, 26.05]
 voz = np.zeros(N, np.float32)
-for k, at in enumerate(VO): put(voz, ler(f'{D}/vo_cb/{k}.wav'), at)
+for k, at in enumerate(VO): put(voz, ler(f'{D}/{os.environ.get("VODIR", "vo_cb")}/{k}.wav'), at)
 voz = np.tanh(voz * 1.7) / np.tanh(1.7)
 
 rng = np.random.default_rng(3)
