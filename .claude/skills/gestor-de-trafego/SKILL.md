@@ -63,6 +63,13 @@ python scripts/calculadora.py escala --orcamento 300 --passo 20 --dias 3 --alvo 
 ```
 Use a calculadora sempre que for falar de viabilidade, meta ou orçamento. Mostre a conta, não só o resultado.
 
+### `scripts/anuncios_ativos.js`: anúncios ativos públicos (concorrência/cliente)
+Abre a Biblioteca de Anúncios do Meta e a Central de Transparência do Google num Chromium real (as duas páginas dependem de JavaScript), rola, tira screenshot e extrai o texto dos anúncios. Requer Node + Playwright e acesso de rede a facebook.com, *.fbcdn.net, adstransparency.google.com e *.googleusercontent.com.
+```bash
+node scripts/anuncios_ativos.js --meta "Nome da página" --dominio site.com.br --saida ./anuncios
+```
+Se não houver navegador ou rede, peça ao usuário os links ou prints da Biblioteca e da Central de Transparência e analise a partir deles.
+
 ### Dados ao vivo (quando disponíveis)
 Se houver ferramentas de dados de marketing conectadas na sessão (por exemplo, o conector Supermetrics com fontes como Facebook Ads, Google Ads ou GA4), ofereça-se para puxar os números reais em vez de pedir prints. Siga o fluxo da ferramenta (descoberta da fonte → contas → campos → consulta) e nunca apresente números que não vieram dela.
 
