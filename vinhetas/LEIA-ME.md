@@ -19,3 +19,8 @@
 - `ELEVENLABS_API_KEY=... EL_MODEL=eleven_multilingual_v2 python3 kokoro/elevenlabs_tts.py gerar nPczCjzI2devNBz1zQrb teaser_ped/vo_el "fala 1" ...`
 - Mixar com essas falas: `VODIR=vo_el python3 teaser_ped/audio.py` (padrão `vo_cb` = Chatterbox)
 - Plano gratuito: uso não comercial e com crédito ao ElevenLabs.
+
+## KTZ Construtora (motion de ~1 min)
+- `ktz/motion/ktz.src.html` (cenas), `plano.py` (encaixa cenas na narração e grava `tempos.json`/`plano.json`), `audio.py` (trilha + voz), `build.py` (monta `ktz.html`)
+- Ordem: `python3 ktz/motion/plano.py && python3 ktz/motion/audio.py && python3 ktz/motion/build.py`, depois `node motion/render.js $PWD/ktz/motion/ktz.html saida.mp4 ktz/motion/mix.m4a 30` (mix.wav → m4a com ffmpeg loudnorm)
+- Falas escolhidas em `ktz/vo/` (as falas 4 e 14 ficam só na tela, para caber em ~1 min)

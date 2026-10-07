@@ -3,9 +3,9 @@ Uso: python3 escolher.py config.json destino_dir"""
 import sys, json, glob, re, unicodedata, shutil, collections, numpy as np, soundfile as sf
 from faster_whisper import WhisperModel
 cfg = json.load(open(sys.argv[1])); dst = sys.argv[2]
-NUM = [('39', 'trinta e nove'), ('210', 'duzentos e dez'), ('910', 'novecentas e dez'), ('900 e 10', 'novecentas e dez'), ('200', 'duzentos'), ('2 mil', 'duas mil'), ('2000', 'duas mil')]
+NUM = [('250', 'duzentos e cinquenta'), ('100', 'cem'), ('10 ', 'dez '), ('10k', 'dez k'), ('3 a 4', 'tres a quatro'), ('ktz', 'ca te ze'), ('k t z', 'ca te ze'), ('k.t.z', 'ca te ze'), ('39', 'trinta e nove'), ('210', 'duzentos e dez'), ('910', 'novecentas e dez'), ('900 e 10', 'novecentas e dez'), ('200', 'duzentos'), ('2 mil', 'duas mil'), ('2000', 'duas mil')]
 def norm(s):
-    s = s.lower()
+    s = s.lower().replace('m²', ' metros quadrados').replace('km', ' quilometros')
     for a, b in NUM: s = s.replace(a, b)
     s = unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode()
     s = re.sub(r'\bp\.? ?e\.? ?d\b|\bp e d\b|\bpid\b|\bped\b', 'pe e de', s)

@@ -1,0 +1,391 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<title>KTZ Construtora · Motion do planejamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--o950:#273025;--o900:#354033;--o800:#485444;--o700:#5d6957;--o600:#72806a;--o500:#87937f;--sage:#a8b19f;--sage2:#c9cfc2;--ivory:#f6f4ee;--ivory2:#eeece5;--stone:#dfddd5;--ink:#222520;--muted:#71766e;--line:#d9dbd4}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1600px;height:900px;overflow:hidden;background:#000;color:var(--ink);font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-.01em;font-variant-numeric:lining-nums}
+#palco{position:relative;width:1600px;height:900px;overflow:hidden;background:var(--o950)}
+.cena{position:absolute;inset:0;visibility:hidden;overflow:hidden}
+.foto{position:absolute;inset:0;background:center/cover no-repeat}
+.veu{position:absolute;inset:0}
+.eyb{font-size:14px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--o600)}
+.claro .eyb,.eyb.cl{color:var(--sage)}
+.m{display:block;overflow:hidden;padding-bottom:.08em}.m>span{display:block}
+#grao{position:absolute;inset:0;z-index:40;pointer-events:none;opacity:.05;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#preto{position:absolute;inset:0;background:#000;z-index:50;opacity:1}
+#barra{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--sage);z-index:41;transform-origin:0 50%;opacity:.55}
+
+/* 1 abertura */
+#s1{background:radial-gradient(60% 70% at 50% 45%,#3a4637,var(--o950) 70%);display:grid;place-items:center}
+#s1 .bx{display:flex;flex-direction:column;align-items:center;gap:30px}
+#s1 .logo{height:250px;width:auto}
+#s1 .linha{width:420px;height:1px;background:var(--sage)}
+#s1 .eyb{color:var(--sage2)}
+
+/* 2 manifesto */
+#s2 .veu{background:linear-gradient(90deg,rgba(28,34,27,.88),rgba(28,34,27,.55) 45%,rgba(28,34,27,.05) 80%)}
+#s2 .tx{position:absolute;left:96px;top:50%;transform:translateY(-50%);width:1100px;color:var(--ivory)}
+#s2 h1{font-size:92px;line-height:.98;margin-top:26px}
+#s2 h1 em{font-style:italic;color:var(--sage2)}
+#s2 p{margin-top:34px;font-size:21px;line-height:1.5;color:var(--sage2);max-width:40ch}
+
+/* 3 números */
+#s3{background:var(--ivory)}
+#s3 .esq{position:absolute;left:0;top:0;bottom:0;width:760px;padding:0 90px;display:flex;flex-direction:column;justify-content:center}
+#s3 .num{position:absolute;left:90px;right:60px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center}
+#s3 .v{font-size:250px;line-height:.8;color:var(--o900);white-space:nowrap}
+#s3 .v small{font-size:.42em;color:var(--o600)}
+#s3 .l{margin-top:40px;font-size:30px;font-weight:600;color:var(--ink);max-width:20ch;line-height:1.25}
+#s3 .l span{display:block;margin-top:10px;font-size:18px;font-weight:500;color:var(--muted)}
+#s3 .topo{position:absolute;left:90px;top:80px}
+#s3 .cont{position:absolute;left:90px;bottom:80px;display:flex;gap:10px}
+#s3 .cont i{display:block;width:46px;height:3px;background:var(--line)}
+#s3 .dir{position:absolute;right:0;top:0;bottom:0;width:840px}
+#s3 .dir .foto{clip-path:inset(0 0 0 100%)}
+#s3 .dir .foto:first-child{clip-path:inset(0 0 0 0%)}
+
+/* 4 transição de marca */
+#s4{background:var(--o900);color:var(--ivory)}
+#s4 .eyb{position:absolute;left:96px;top:88px}
+#s4 .par{position:absolute;left:96px;right:96px;top:50%;transform:translateY(-50%);display:grid;grid-template-columns:1fr 200px 1fr;align-items:center}
+#s4 .lado .nm{font-size:110px;line-height:1}
+#s4 .lado .vb{margin-top:18px;font-size:28px;font-weight:600}
+#s4 .lado .dt{margin-top:12px;font-size:17px;color:var(--sage);letter-spacing:.04em}
+#s4 .a .nm{color:var(--sage2)} #s4 .a .vb{color:var(--sage)}
+#s4 .b{text-align:right} #s4 .b .nm{color:var(--ivory)} #s4 .b .vb{color:var(--sage2)}
+#s4 .seta{height:2px;background:var(--sage);transform-origin:0 50%;position:relative}
+#s4 .seta:after{content:'';position:absolute;right:-2px;top:-7px;border-left:14px solid var(--sage);border-top:8px solid transparent;border-bottom:8px solid transparent}
+#s4 .rod{position:absolute;left:96px;bottom:88px;font-size:20px;color:var(--sage);max-width:60ch;line-height:1.5}
+
+/* 5 jornada */
+#s5{background:var(--ivory2)}
+#s5 .eyb{position:absolute;left:96px;top:88px}
+#s5 h2{position:absolute;left:96px;top:124px;font-size:64px;color:var(--o950);line-height:1}
+#s5 .cols{position:absolute;left:96px;right:96px;bottom:110px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+#s5 .c{position:relative;padding-top:28px}
+#s5 .c .tr{position:absolute;left:0;right:0;top:0;height:3px;background:var(--line)}
+#s5 .c .tr b{position:absolute;inset:0;background:var(--o800);transform-origin:0 50%;transform:scaleX(0)}
+#s5 .c .n{font-size:16px;font-weight:800;color:var(--o600);letter-spacing:.1em}
+#s5 .c .t{margin-top:16px;font-size:50px;white-space:nowrap;line-height:1;color:var(--o950)}
+#s5 .c .d{margin-top:16px;font-size:18px;color:var(--muted);line-height:1.45;max-width:22ch}
+#s5 .c .k{margin-top:18px;display:inline-block;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--o800);border:1px solid var(--sage);border-radius:99px;padding:7px 14px}
+
+/* 6 públicos + região */
+#s6{background:var(--ivory)}
+#s6 .eyb{position:absolute;left:96px;top:88px}
+#s6 h2{position:absolute;left:96px;top:124px;font-size:64px;color:var(--o950);line-height:1}
+#s6 .cards{position:absolute;left:96px;top:270px;width:760px;display:flex;flex-direction:column;gap:16px}
+#s6 .card{display:grid;grid-template-columns:70px 1fr auto;align-items:center;background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px 30px;box-shadow:0 12px 35px rgba(39,48,37,.07)}
+#s6 .card .n{font-size:15px;font-weight:800;color:var(--o600);letter-spacing:.1em}
+#s6 .card .t{font-size:40px;color:var(--o950);line-height:1}
+#s6 .card .t span{display:block;margin-top:8px;font-family:'Manrope';font-size:16px;color:var(--muted);letter-spacing:0}
+#s6 .card .i{font-size:15px;font-weight:700;color:var(--o800);background:var(--ivory2);border-radius:99px;padding:8px 14px}
+#s6 .card.p{background:var(--o900);border-color:var(--o900)} #s6 .card.p .t{color:var(--ivory)} #s6 .card.p .t span{color:var(--sage)} #s6 .card.p .n{color:var(--sage)} #s6 .card.p .i{background:var(--o700);color:var(--ivory)}
+#s6 .mapa{position:absolute;right:96px;top:270px;width:560px;height:536px;border-radius:28px;background:var(--o950);overflow:hidden}
+#s6 .mapa svg{position:absolute;inset:0}
+#s6 .mapa .leg{position:absolute;left:34px;bottom:30px;color:var(--ivory)}
+#s6 .mapa .leg b{display:block;font-size:44px;font-family:'Cormorant Garamond';font-weight:500;font-variant-numeric:lining-nums}
+#s6 .mapa .leg span{font-size:15px;color:var(--sage);letter-spacing:.06em}
+
+/* 7 ecossistema */
+#s7{background:var(--o950);color:var(--ivory)}
+#s7 .eyb{position:absolute;left:96px;top:88px}
+#s7 h2{position:absolute;left:96px;top:124px;font-size:64px;line-height:1;color:var(--ivory)}
+#s7 h2 em{font-style:italic;color:var(--sage2)}
+#s7 .fluxo{position:absolute;left:96px;right:96px;top:420px}
+#s7 .trilho{position:absolute;left:30px;right:30px;top:29px;height:2px;background:rgba(201,207,194,.18)}
+#s7 .trilho b{position:absolute;inset:0;background:var(--sage);transform-origin:0 50%;transform:scaleX(0)}
+#s7 .nos{position:relative;display:grid;grid-template-columns:repeat(5,1fr)}
+#s7 .no .bola{width:60px;height:60px;border-radius:50%;border:2px solid rgba(201,207,194,.3);background:var(--o950);display:grid;place-items:center;font-size:15px;font-weight:800;color:var(--sage)}
+#s7 .no .t{margin-top:26px;font-size:42px;line-height:1}
+#s7 .no .d{margin-top:14px;font-size:17px;line-height:1.45;color:var(--sage);max-width:20ch}
+#s7 .no.on .bola{background:var(--sage);border-color:var(--sage);color:var(--o950)}
+
+/* 8 site */
+#s8{background:linear-gradient(160deg,var(--stone),var(--ivory2))}
+#s8 .eyb{position:absolute;left:96px;top:70px}
+#s8 .nav{position:absolute;left:50%;top:120px;width:1240px;margin-left:-620px;height:730px;border-radius:22px 22px 0 0;background:#fbfaf7;box-shadow:0 30px 80px rgba(21,29,21,.22);overflow:hidden}
+#s8 .chrome{height:50px;background:#eceae3;display:flex;align-items:center;gap:8px;padding:0 20px}
+#s8 .chrome i{width:12px;height:12px;border-radius:50%;background:#d0cec6}
+#s8 .url{margin-left:20px;height:30px;flex:0 0 420px;border-radius:99px;background:#fbfaf7;display:flex;align-items:center;padding:0 16px;font-size:14px;font-weight:600;color:var(--o800)}
+#s8 .pag{position:absolute;left:0;right:0;top:50px;height:1400px}
+#s8 .hero{position:relative;height:680px}
+#s8 .hero .veu{background:linear-gradient(90deg,rgba(24,32,24,.85),rgba(24,32,24,.35) 60%,rgba(24,32,24,.1))}
+#s8 .menu{position:absolute;left:56px;right:56px;top:30px;display:flex;align-items:center;justify-content:space-between;color:#fff}
+#s8 .menu img{height:54px}
+#s8 .menu ul{display:flex;gap:30px;list-style:none;font-size:15px;font-weight:600}
+#s8 .menu .bt{font-size:14px;font-weight:700;border:1px solid rgba(255,255,255,.6);border-radius:99px;padding:10px 18px}
+#s8 .htx{position:absolute;left:56px;bottom:90px;width:900px;color:#fff}
+#s8 .htx .eyb{position:static;color:var(--sage2)}
+#s8 .htx h3{margin-top:18px;font-size:68px;line-height:1}
+#s8 .htx p{margin-top:20px;font-size:19px;line-height:1.5;color:#e8ebe4}
+#s8 .provas{display:grid;grid-template-columns:repeat(3,1fr);padding:40px 56px;gap:30px;background:#fbfaf7}
+#s8 .provas div{border-top:1px solid var(--line);padding-top:18px;font-size:15px;color:var(--muted)}
+#s8 .provas b{display:block;font-family:'Cormorant Garamond';font-weight:500;font-variant-numeric:lining-nums;font-size:52px;color:var(--o900);line-height:1;margin-bottom:6px}
+
+/* 9 pauta */
+#s9{background:var(--ivory)}
+#s9 .fx{position:absolute;right:0;top:0;bottom:0;width:560px}
+#s9 .fx .veu{background:linear-gradient(90deg,var(--ivory),rgba(246,244,238,0) 35%)}
+#s9 .eyb{position:absolute;left:96px;top:110px}
+#s9 h2{position:absolute;left:96px;top:146px;font-size:96px;color:var(--o950);line-height:1}
+#s9 ol{position:absolute;left:96px;top:300px;width:880px;list-style:none}
+#s9 li{display:grid;grid-template-columns:80px 1fr;align-items:baseline;border-top:1px solid var(--line);padding:20px 0}
+#s9 li .n{font-size:16px;font-weight:800;color:var(--o600);letter-spacing:.1em}
+#s9 li .t{font-size:46px;color:var(--o950);line-height:1}
+#s9 li .t span{font-family:'Manrope';font-size:17px;color:var(--muted);margin-left:16px}
+
+/* 10 fecho */
+#s10 .veu{background:radial-gradient(70% 80% at 50% 55%,rgba(24,32,24,.55),rgba(24,32,24,.92))}
+#s10 .tx{position:absolute;left:0;right:0;top:50%;transform:translateY(-58%);text-align:center;color:var(--ivory)}
+#s10 .l1{font-size:64px;color:var(--sage2)}
+#s10 .l2{margin-top:10px;font-size:96px;line-height:1}
+#s10 .l2 em{font-style:italic;color:var(--sage2)}
+#s10 .rod{position:absolute;left:0;right:0;bottom:70px;display:flex;flex-direction:column;align-items:center;gap:16px}
+#s10 .rod img{height:96px}
+</style></head><body>
+<div id="palco">
+
+ <section class="cena" id="s1"><div class="bx">
+  <img class="logo" id="s1l" src="{{img:logo-claro.svg}}">
+  <div class="linha" id="s1i"></div>
+  <div class="eyb" id="s1e">Planejamento estratégico · Reconhecimento de marca · 2026</div>
+ </div></section>
+
+ <section class="cena" id="s2">
+  <div class="foto" id="s2f" style="background-image:url({{img:casa1.jpg}})"></div><div class="veu"></div>
+  <div class="tx">
+   <div class="eyb cl" id="s2e">A direção estratégica</div>
+   <h1 class="serif"><span class="m"><span>Construir a marca</span></span><span class="m"><span>que será lembrada</span></span><span class="m"><span>para construir <em>a casa da vida.</em></span></span></h1>
+   <p id="s2p">Presença e autoridade para posicionar a KTZ como referência em execução de residências de alto padrão.</p>
+  </div>
+ </section>
+
+ <section class="cena" id="s3">
+  <div class="esq">
+   <div class="eyb topo" id="s3e">O que já existe por trás da marca</div>
+   <div class="num" id="n1"><div class="v serif">+100</div><div class="l">residências já executadas<span>Histórico construído antes da nova identidade.</span></div></div>
+   <div class="num" id="n2"><div class="v serif">250<small> m²+</small></div><div class="l">patamar mínimo das obras<span>Foco em residências de alto padrão e maior porte.</span></div></div>
+   <div class="num" id="n3"><div class="v serif">3–4</div><div class="l">casas por ano<span>Operação concentrada para acompanhar cada obra de perto.</span></div></div>
+   <div class="cont"><i></i><i></i><i></i></div>
+  </div>
+  <div class="dir">
+   <div class="foto" id="f1" style="background-image:url({{img:casa2.webp}})"></div>
+   <div class="foto" id="f2" style="background-image:url({{img:interior.webp}})"></div>
+   <div class="foto" id="f3" style="background-image:url({{img:piscina.webp}})"></div>
+  </div>
+ </section>
+
+ <section class="cena" id="s4">
+  <div class="eyb cl" id="s4e">Transição de marca</div>
+  <div class="par">
+   <div class="lado a" id="s4a"><div class="nm serif">Julio Katz</div><div class="vb">dá lastro.</div><div class="dt">Histórico · +100 residências</div></div>
+   <div class="seta" id="s4s"></div>
+   <div class="lado b" id="s4b"><div class="nm serif">KTZ</div><div class="vb">ganha futuro.</div><div class="dt">Posicionamento · “a casa da vida”</div></div>
+  </div>
+  <div class="rod" id="s4r">A nova marca não começa do zero: transforma um histórico conhecido em uma identidade capaz de crescer.</div>
+ </section>
+
+ <section class="cena" id="s5">
+  <div class="eyb" id="s5e">Jornada de reconhecimento</div>
+  <h2 class="serif" id="s5h">Ser visto é só o começo.</h2>
+  <div class="cols">
+   <div class="c" id="j1"><div class="tr"><b></b></div><div class="n">01</div><div class="t serif">Ser visto</div><div class="d">Alcançar arquitetos e futuros proprietários de alto padrão.</div><div class="k">Alcance + frequência</div></div>
+   <div class="c" id="j2"><div class="tr"><b></b></div><div class="n">02</div><div class="t serif">Ser reconhecido</div><div class="d">Repetir identidade, obras e assinatura visual.</div><div class="k">Consistência</div></div>
+   <div class="c" id="j3"><div class="tr"><b></b></div><div class="n">03</div><div class="t serif">Ser provado</div><div class="d">Mostrar processo, equipe, gestão e respeito ao projeto.</div><div class="k">Prova concreta</div></div>
+   <div class="c" id="j4"><div class="tr"><b></b></div><div class="n">04</div><div class="t serif">Ser lembrado</div><div class="d">Estar entre as opções confiáveis quando a obra entrar na pauta.</div><div class="k">Memória de marca</div></div>
+  </div>
+ </section>
+
+ <section class="cena" id="s6">
+  <div class="eyb" id="s6e">Públicos e região</div>
+  <h2 class="serif" id="s6h">Três públicos. Um papel para cada.</h2>
+  <div class="cards">
+   <div class="card p" id="p1"><div class="n">01</div><div class="t serif">Arquiteto parceiro<span>Público prioritário · 28–55 anos</span></div><div class="i">Prioritário</div></div>
+   <div class="card" id="p2"><div class="n">02</div><div class="t serif">Futuro proprietário<span>Casa de alto padrão · 32–60 anos</span></div><div class="i">Residência</div></div>
+   <div class="card" id="p3"><div class="n">03</div><div class="t serif">Empresário / investidor<span>Perfil patrimonial · 35–60 anos</span></div><div class="i">Patrimônio</div></div>
+  </div>
+  <div class="mapa" id="s6m">
+   <svg viewBox="0 60 620 560" width="560" height="536" preserveAspectRatio="xMidYMid slice">
+    <defs><pattern id="gr" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M34 0H0V34" fill="none" stroke="rgba(201,207,194,.08)"/></pattern></defs>
+    <rect width="620" height="680" fill="url(#gr)"/>
+    <path d="M-20 420 C120 380 180 470 300 430 S520 330 660 380" fill="none" stroke="rgba(135,147,127,.35)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M60 -20 C120 160 250 220 310 310 S420 560 380 720" fill="none" stroke="rgba(201,207,194,.14)" stroke-width="3"/>
+    <path d="M-20 200 C160 260 360 220 660 250" fill="none" stroke="rgba(201,207,194,.1)" stroke-width="3"/>
+    <g id="aneis" transform="translate(310 310)">
+     <circle class="an" r="230" fill="rgba(168,177,159,.07)" stroke="rgba(168,177,159,.5)" stroke-width="1.5" stroke-dasharray="6 8"/>
+     <circle class="an" r="150" fill="rgba(168,177,159,.08)" stroke="rgba(168,177,159,.35)" stroke-width="1"/>
+     <circle class="an" r="70" fill="rgba(168,177,159,.12)" stroke="rgba(168,177,159,.3)" stroke-width="1"/>
+     <circle id="pulso" r="20" fill="none" stroke="#c9cfc2" stroke-width="2"/>
+     <circle r="9" fill="#f6f4ee"/>
+     <text x="0" y="-26" fill="#f6f4ee" font-family="Manrope" font-weight="700" font-size="18" text-anchor="middle">Lajeado</text>
+     <line x1="0" y1="0" x2="230" y2="0" stroke="#c9cfc2" stroke-width="1.5" id="raio"/>
+     <text x="168" y="-10" fill="#c9cfc2" font-family="Manrope" font-weight="800" font-size="16" text-anchor="middle" id="raiot">10 km</text>
+    </g>
+   </svg>
+   <div class="leg" id="s6l"><b>Lajeado + 10 km</b><span>ÁREA INICIAL DA CAMPANHA START</span></div>
+  </div>
+ </section>
+
+ <section class="cena" id="s7">
+  <div class="eyb cl" id="s7e">Ecossistema digital</div>
+  <h2 class="serif" id="s7h">O Meta cria presença. <em>O resto sustenta a confiança.</em></h2>
+  <div class="fluxo">
+   <div class="trilho"><b id="s7t"></b></div>
+   <div class="nos">
+    <div class="no" id="e1"><div class="bola">01</div><div class="t serif">Meta Ads</div><div class="d">Faz a KTZ entrar no repertório das pessoas certas.</div></div>
+    <div class="no" id="e2"><div class="bola">02</div><div class="t serif">Instagram</div><div class="d">Mostra obras, bastidores e a marca em repetição.</div></div>
+    <div class="no" id="e3"><div class="bola">03</div><div class="t serif">Google</div><div class="d">Confirma dados, fotos e presença oficial.</div></div>
+    <div class="no" id="e4"><div class="bola">04</div><div class="t serif">Site</div><div class="d">Explica a empresa por trás da obra.</div></div>
+    <div class="no" id="e5"><div class="bola">05</div><div class="t serif">Confiança</div><div class="d">A conversa começa sabendo quem é a KTZ.</div></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="cena" id="s8">
+  <div class="eyb" id="s8e">Proposta de site institucional</div>
+  <div class="nav" id="s8n">
+   <div class="chrome"><i></i><i></i><i></i><div class="url">ktzconstrutora.com.br</div></div>
+   <div class="pag" id="s8p">
+    <div class="hero">
+     <div class="foto" id="s8f" style="background-image:url({{img:externa.webp}})"></div><div class="veu"></div>
+     <div class="menu"><img src="{{img:logo-claro.svg}}"><ul><li>A KTZ</li><li>Obras</li><li>Para arquitetos</li><li>Como trabalhamos</li></ul><div class="bt">Fale com a KTZ</div></div>
+     <div class="htx"><div class="eyb">Execução residencial · Lajeado, RS</div><h3 class="serif" id="s8h"><span class="m"><span>Projetos extraordinários</span></span><span class="m"><span>merecem uma execução à altura.</span></span></h3><p>A KTZ recebe o projeto arquitetônico e conduz a obra do planejamento à entrega.</p></div>
+    </div>
+    <div class="provas"><div><b>+100</b>residências executadas</div><div><b>250 m²+</b>residências de maior porte</div><div><b>3–4</b>obras por ano, acompanhadas de perto</div></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="cena" id="s9">
+  <div class="fx"><div class="foto" id="s9f" style="background-image:url({{img:lounge.webp}})"></div><div class="veu"></div></div>
+  <div class="eyb" id="s9e">Na reunião de hoje</div>
+  <h2 class="serif" id="s9h">Hoje</h2>
+  <ol>
+   <li id="a1"><div class="n">01</div><div class="t serif">A estratégia<span>reconhecimento antes da decisão</span></div></li>
+   <li id="a2"><div class="n">02</div><div class="t serif">Os públicos<span>Lajeado + 10 km</span></div></li>
+   <li id="a3"><div class="n">03</div><div class="t serif">O conteúdo<span>seis pilares</span></div></li>
+   <li id="a4"><div class="n">04</div><div class="t serif">O site<span>e o Google</span></div></li>
+   <li id="a5"><div class="n">05</div><div class="t serif">O investimento<span>Start no Meta Ads</span></div></li>
+  </ol>
+ </section>
+
+ <section class="cena" id="s10">
+  <div class="foto" id="s10f" style="background-image:url({{img:piscina.webp}})"></div><div class="veu"></div>
+  <div class="tx">
+   <div class="l1 serif"><span class="m"><span>Não é sobre aparecer mais.</span></span></div>
+   <div class="l2 serif"><span class="m"><span>É sobre fazer a KTZ <em>significar mais.</em></span></span></div>
+  </div>
+  <div class="rod" id="s10r"><img src="{{img:logo-claro.svg}}"><div class="eyb cl">Planejamento estratégico · 2026</div></div>
+ </section>
+
+ <div id="barra"></div><div id="grao"></div><div id="preto"></div>
+</div>
+<script>{{gsap}}</script>
+<script>
+gsap.defaults({lazy:false});
+var T={{tempos}};
+var tl=gsap.timeline({paused:true}), E='power3.out', DUR=T.fim;
+var ordem=['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10'];
+gsap.set('.cena',{autoAlpha:0});
+// cada cena entra com fade de .6 s por cima da anterior; a anterior some depois que a nova cobriu
+ordem.forEach(function(id,i){
+  var a=T[id], b=i<ordem.length-1?T[ordem[i+1]]:DUR+1;
+  tl.set('#'+id,{visibility:'visible'},a).fromTo('#'+id,{opacity:i?0:1},{opacity:1,duration:i?.6:.01,ease:'power1.inOut',immediateRender:false},a);
+  if(i<ordem.length-1)tl.set('#'+id,{visibility:'hidden'},b+.65);
+});
+tl.fromTo('#barra',{scaleX:0},{scaleX:1,duration:DUR,ease:'none'},0);
+tl.to('#preto',{opacity:0,duration:1.0},0);
+
+/* 1 abertura */
+tl.fromTo('#s1l',{autoAlpha:0,y:30,scale:.94},{autoAlpha:1,y:0,scale:1,duration:1.4,ease:E},.3)
+  .fromTo('#s1i',{scaleX:0},{scaleX:1,duration:1.1,ease:'power4.inOut'},.9)
+  .fromTo('#s1e',{autoAlpha:0,letterSpacing:'.5em'},{autoAlpha:1,letterSpacing:'.28em',duration:1.4,ease:E},1.2)
+  .to('#s1 .bx',{scale:1.04,duration:T.s2-T.s1+.6,ease:'none'},0);
+
+/* 2 manifesto */
+tl.fromTo('#s2f',{scale:1.14},{scale:1.02,duration:T.s3-T.s2+.6,ease:'none'},T.s2)
+  .fromTo('#s2e',{autoAlpha:0,y:14},{autoAlpha:1,y:0,duration:.7,ease:E},T.s2+.3)
+  .fromTo('#s2 h1 .m>span',{yPercent:110},{yPercent:0,duration:1.0,stagger:T.s2stag,ease:'power4.out'},T.s2+.45)
+  .fromTo('#s2p',{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:.8,ease:E},T.s2p);
+
+/* 3 números */
+tl.fromTo('#s3e',{autoAlpha:0},{autoAlpha:1,duration:.6},T.s3+.3);
+var ns=['#n1','#n2','#n3'], fs=['#f1','#f2','#f3'];
+ns.forEach(function(n,i){
+  var t=T['n'+(i+1)];
+  gsap.set(n,{autoAlpha:0});
+  if(i>0){tl.to(ns[i-1],{autoAlpha:0,y:-40,duration:.4,ease:'power2.in'},t-.45)
+            .fromTo(fs[i],{clipPath:'inset(0 0 0 100%)'},{clipPath:'inset(0 0 0 0%)',duration:.9,ease:'power4.inOut',immediateRender:false},t-.45);}
+  tl.fromTo(n,{autoAlpha:0,y:50},{autoAlpha:1,y:0,duration:.8,ease:E},t)
+    .fromTo(n+' .l',{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:.6,ease:E},t+.25)
+    .set('#s3 .cont i:nth-child('+(i+1)+')',{background:'#485444'},t)
+    .fromTo(fs[i],{scale:1.12},{scale:1.0,duration:4,ease:'none',immediateRender:false},t-.45);
+});
+
+/* 4 marca */
+tl.fromTo('#s4e',{autoAlpha:0},{autoAlpha:1,duration:.6},T.s4+.3)
+  .fromTo('#s4a',{autoAlpha:0,x:-40},{autoAlpha:1,x:0,duration:.9,ease:E},T.s4+.35)
+  .fromTo('#s4s',{scaleX:0},{scaleX:1,duration:.9,ease:'power3.inOut'},T.s4b-.6)
+  .fromTo('#s4b',{autoAlpha:0,x:40},{autoAlpha:1,x:0,duration:.9,ease:E},T.s4b)
+  .fromTo('#s4r',{autoAlpha:0,y:14},{autoAlpha:1,y:0,duration:.8,ease:E},T.s4b+.8);
+
+/* 5 jornada */
+tl.fromTo('#s5e',{autoAlpha:0},{autoAlpha:1,duration:.6},T.s5+.25)
+  .fromTo('#s5h',{autoAlpha:0,y:20},{autoAlpha:1,y:0,duration:.8,ease:E},T.s5+.3);
+['#j1','#j2','#j3','#j4'].forEach(function(j,i){
+  var t=T['j'+(i+1)];
+  tl.fromTo(j,{autoAlpha:.18,y:24},{autoAlpha:1,y:0,duration:.7,ease:E},t)
+    .to(j+' .tr b',{scaleX:1,duration:.8,ease:'power3.inOut'},t);
+});
+gsap.set(['#j1','#j2','#j3','#j4'],{autoAlpha:.18});
+
+/* 6 públicos */
+tl.fromTo('#s6e',{autoAlpha:0},{autoAlpha:1,duration:.6},T.s6+.25)
+  .fromTo('#s6h',{autoAlpha:0,y:20},{autoAlpha:1,y:0,duration:.8,ease:E},T.s6+.3);
+['#p1','#p2','#p3'].forEach(function(p,i){tl.fromTo(p,{autoAlpha:0,x:-40},{autoAlpha:1,x:0,duration:.7,ease:E},T['p'+(i+1)])});
+tl.fromTo('#s6m',{autoAlpha:0,scale:.96},{autoAlpha:1,scale:1,duration:.9,ease:E},T.s6+.5)
+  .fromTo('#aneis .an',{scale:0,transformOrigin:'50% 50%'},{scale:1,duration:1.1,stagger:.15,ease:'power3.out'},T.mapa)
+  .fromTo('#raio',{attr:{x2:0}},{attr:{x2:230},duration:.9,ease:'power3.inOut'},T.mapa+.4)
+  .fromTo('#raiot',{autoAlpha:0},{autoAlpha:1,duration:.4},T.mapa+1.0)
+  .fromTo('#s6l',{autoAlpha:0,y:14},{autoAlpha:1,y:0,duration:.7,ease:E},T.mapa+.6);
+gsap.set('#aneis .an',{scale:0,transformOrigin:'50% 50%'});
+for(var k=0;k<6;k++)tl.fromTo('#pulso',{attr:{r:12},opacity:.9},{attr:{r:60},opacity:0,duration:1.4,ease:'power2.out',immediateRender:false},T.s6+.8+k*1.3);
+
+/* 7 ecossistema */
+tl.fromTo('#s7e',{autoAlpha:0},{autoAlpha:1,duration:.6},T.s7+.25)
+  .fromTo('#s7h',{autoAlpha:0,y:20},{autoAlpha:1,y:0,duration:.8,ease:E},T.s7+.3);
+gsap.set('.no',{autoAlpha:.25});
+['#e1','#e2','#e3','#e4','#e5'].forEach(function(e,i){
+  var t=T['e'+(i+1)];
+  tl.to(e,{autoAlpha:1,duration:.5},t).to(e+' .bola',{backgroundColor:'#a8b19f',borderColor:'#a8b19f',color:'#273025',duration:.4},t)
+    .fromTo(e+' .t',{y:16},{y:0,duration:.6,ease:E},t)
+    .to('#s7t',{scaleX:i/4,duration:.7,ease:'power2.inOut'},t-.35);
+});
+
+/* 8 site */
+tl.fromTo('#s8e',{autoAlpha:0},{autoAlpha:1,duration:.6},T.s8+.25)
+  .fromTo('#s8n',{y:260},{y:0,duration:1.2,ease:'power4.out'},T.s8)
+  .fromTo('#s8f',{scale:1.12},{scale:1.02,duration:5,ease:'none'},T.s8)
+  .fromTo('#s8h .m>span',{yPercent:110},{yPercent:0,duration:.9,stagger:.2,ease:'power4.out'},T.s8h)
+  .to('#s8p',{y:-250,duration:1.6,ease:'power2.inOut'},T.s8scroll);
+
+/* 9 pauta */
+tl.fromTo('#s9f',{scale:1.15},{scale:1.03,duration:6,ease:'none'},T.s9)
+  .fromTo('#s9e',{autoAlpha:0},{autoAlpha:1,duration:.6},T.s9+.25)
+  .fromTo('#s9h',{autoAlpha:0,y:24},{autoAlpha:1,y:0,duration:.8,ease:E},T.s9+.2);
+['#a1','#a2','#a3','#a4','#a5'].forEach(function(a,i){tl.fromTo(a,{autoAlpha:0,x:-30},{autoAlpha:1,x:0,duration:.6,ease:E},T['a'+(i+1)])});
+
+/* 10 fecho */
+tl.fromTo('#s10f',{scale:1.18},{scale:1.04,duration:DUR-T.s10+.5,ease:'none'},T.s10)
+  .fromTo('#s10 .l1 .m>span',{yPercent:110},{yPercent:0,duration:1.0,ease:'power4.out'},T.f1)
+  .fromTo('#s10 .l2 .m>span',{yPercent:110},{yPercent:0,duration:1.0,ease:'power4.out'},T.f2)
+  .fromTo('#s10r',{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:1.0,ease:E},T.f2+1.4)
+  .to('#preto',{opacity:1,duration:1.4,ease:'power2.in'},DUR-1.5)
+  .to({},{duration:.01},DUR);
+
+window.__dur=DUR; window.__seek=function(t){tl.seek(t,false)}; window.__seek(0); window.__ready=true;
+</script></body></html>
