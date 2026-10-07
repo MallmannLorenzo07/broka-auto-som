@@ -10,7 +10,7 @@ def put(dst, x, at, g=1.0):
 
 voz = np.zeros(N, np.float32)
 for k, at in enumerate(P['vo']):
-    if at is not None: put(voz, ler(f'{D}/../vo/{k}.wav'), at)
+    if at is not None: put(voz, ler(f"{D}/../{os.environ.get('VODIR', 'vo')}/{k}.wav"), at)
 voz = np.tanh(voz * 1.2) / np.tanh(1.2)
 
 B = 60 / 84

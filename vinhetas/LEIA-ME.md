@@ -24,3 +24,5 @@
 - `ktz/motion/ktz.src.html` (cenas), `plano.py` (encaixa cenas na narração e grava `tempos.json`/`plano.json`), `audio.py` (trilha + voz), `build.py` (monta `ktz.html`)
 - Ordem: `python3 ktz/motion/plano.py && python3 ktz/motion/audio.py && python3 ktz/motion/build.py`, depois `node motion/render.js $PWD/ktz/motion/ktz.html saida.mp4 ktz/motion/mix.m4a 30` (mix.wav → m4a com ffmpeg loudnorm)
 - Falas escolhidas em `ktz/vo/` (as falas 4 e 14 ficam só na tela, para caber em ~1 min)
+- Versão ElevenLabs (voz Brian): `VODIR=vo_el ALVO=64 python3 ktz/motion/plano.py && VODIR=vo_el python3 ktz/motion/audio.py` (falas em `ktz/vo_el/`)
+- Para celular: áudio AAC-LC estéreo 44,1 kHz e vídeo H.264 Main 4.0 (`-profile:v main -level:v 4.0 -ar 44100 -ac 2 -movflags +faststart`)

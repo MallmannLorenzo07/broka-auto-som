@@ -2,8 +2,8 @@
 e grava tempos.json (para o HTML) e plano.json (para o áudio). Ajusta as pausas para o total dar ~60 s."""
 import os, sys, json, unicodedata, numpy as np
 from corte import ler, SR
-D = os.path.dirname(os.path.abspath(__file__)); VO = D + '/../vo'; ALVO = 65.5
-SEM_FALA = {4: 2.0, 14: 3.0}   # falas cortadas para caber em ~1 min: a cena fica só com texto na tela (segundos de tela)
+D = os.path.dirname(os.path.abspath(__file__)); VO = D + '/../' + os.environ.get('VODIR', 'vo'); ALVO = float(os.environ.get('ALVO', 65.5))
+SEM_FALA = json.loads(os.environ.get('SEM_FALA', '{"4": 2.0, "14": 3.0}')); SEM_FALA = {int(k): v for k, v in SEM_FALA.items()}   # falas cortadas para caber em ~1 min: a cena fica só com texto na tela (segundos de tela)
 
 dur = [len(ler(f'{VO}/{i}.wav')) / SR for i in range(18)]
 from faster_whisper import WhisperModel
