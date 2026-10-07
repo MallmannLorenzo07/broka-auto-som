@@ -47,10 +47,18 @@ async function google(browser) {
   await rolar(page, 6);
   await page.screenshot({ path: path.join(SAIDA, 'google.png'), fullPage: true });
   const texto = await page.evaluate(() => document.body.innerText);
-  const links = await page.$$eval('a[href*="/creative/"]', as => [...new Set(as.map(a => a.href))]);
+  let links = await page.$$eval('a[href*="/creative/"]', as => [...new Set(as.map(a => a.href))]);
+  // a busca por domínio mostra só uma prévia: abre a página de cada anunciante para pegar todos os criativos
+  const anunciantes = [...new Set(links.map(l => (l.match(/advertiser\/(AR\d+)/) || [])[1]).filter(Boolean))];
+  for (const ar of anunciantes) {
+    await page.goto(`https://adstransparency.google.com/advertiser/${ar}?region=BR`, { waitUntil: 'load', timeout: 90000 });
+    await page.waitForTimeout(6000);
+    await rolar(page, 10);
+    links = [...new Set([...links, ...await page.$$eval('a[href*="/creative/"]', as => as.map(a => a.href))])];
+  }
   fs.writeFileSync(path.join(SAIDA, 'google.txt'), url + '\n\n' + texto + '\n\nCRIATIVOS:\n' + links.join('\n'));
   // abre os primeiros criativos para capturar texto/formato de cada um
-  for (const [i, l] of links.slice(0, 15).entries()) {
+  for (const [i, l] of links.slice(0, 40).entries()) {
     const p = await browser.newPage({ locale: 'pt-BR', viewport: { width: 1200, height: 900 } });
     await p.goto(l, { waitUntil: 'networkidle', timeout: 60000 }).catch(() => {});
     await p.waitForTimeout(3000);
