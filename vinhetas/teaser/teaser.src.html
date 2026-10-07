@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<title>Marcelo Munhoz · Vinheta de outubro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Archivo:wdth,wght@62..125,500..900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E0B0B;--ink:#F5EFE8;--ink2:#D3C9C0;--mute:#A0958C;--red:#E3343E;--red2:#A3121A}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1600px;height:900px;overflow:hidden;background:#000;color:var(--ink);font-family:'Hanken Grotesk',sans-serif;-webkit-font-smoothing:antialiased}
+.disp{font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:900;letter-spacing:-.03em;line-height:.88}
+#palco{position:relative;width:1600px;height:900px;overflow:hidden;background:var(--bg)}
+.cena{position:absolute;inset:0;visibility:hidden;overflow:hidden}
+.foto{position:absolute;inset:0;background:center/cover no-repeat}
+.veu{position:absolute;inset:0}
+#grao{position:absolute;inset:0;z-index:40;pointer-events:none;opacity:.07;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#flash{position:absolute;inset:0;background:#fff;z-index:45;opacity:0;pointer-events:none}
+#preto{position:absolute;inset:0;background:#000;z-index:50;opacity:1}
+.eyb{font-size:15px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+
+/* 1 abertura */
+#s1{background:radial-gradient(50% 60% at 50% 50%,rgba(163,18,26,.35),transparent 70%),var(--bg);display:grid;place-items:center}
+#s1 .bx{display:flex;flex-direction:column;align-items:center;gap:26px}
+#s1 .logo{width:520px}
+#s1 .linha{width:640px;height:3px;background:var(--red);transform-origin:50% 50%}
+#s1 .data{font-family:'Archivo';font-stretch:125%;font-weight:800;font-size:22px;letter-spacing:.3em;color:var(--ink2)}
+
+/* 2 setembro */
+#s2 .veu{background:linear-gradient(0deg,rgba(14,11,11,.85),rgba(14,11,11,.25) 55%,rgba(14,11,11,.55))}
+#s2 .palavra{position:absolute;left:64px;bottom:120px;font-size:196px;white-space:nowrap}
+#s2 .palavra span{color:var(--red)}
+#s2 .sub{position:absolute;left:70px;bottom:78px;font-size:26px;font-weight:600;color:var(--ink2)}
+#s2 .sub b{color:var(--ink)}
+#s2 .bat{position:absolute;right:64px;bottom:84px;display:flex;gap:8px}
+#s2 .bat i{display:block;width:34px;height:6px;background:rgba(255,255,255,.25)}
+
+/* 3 números */
+.np{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 110px}
+.np .v{font-size:330px;line-height:.82;white-space:nowrap}
+.np .l{margin-top:28px;font-size:36px;font-weight:600;color:var(--ink2);max-width:28ch;line-height:1.25}
+.np .l b{color:var(--ink)}
+#n1{background:var(--bg)} #n1 .v{color:var(--ink)}
+#n2{background:var(--red2)} #n2 .v{color:#fff} #n2 .l{color:#FFD8D8}
+#n3{background:#120d0d} #n3 .v{color:var(--red)}
+.np .tag{position:absolute;right:110px;top:110px;font-size:15px;font-weight:700;letter-spacing:.2em;color:var(--mute)}
+
+/* 4 pergunta */
+#s4 .veu{background:radial-gradient(80% 80% at 50% 55%,rgba(14,11,11,.55),rgba(14,11,11,.95))}
+#s4 .t1{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font-size:58px;font-weight:700;color:var(--ink2)}
+#s4 .t2{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font-size:150px}
+#s4 .t2 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
+#s4 .t2 .w>span{display:inline-block}
+#s4 .t2 .r{color:var(--red)}
+
+/* 5 capítulos */
+#s5{background:var(--bg)}
+#s5 .head{position:absolute;left:56px;top:46px;z-index:5}
+#s5 .cols{position:absolute;inset:110px 56px 70px 56px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.col{position:relative;border-radius:8px;overflow:hidden;background:#000}
+.col .foto{filter:grayscale(.25)}
+.col .veu{background:linear-gradient(0deg,rgba(14,11,11,.95) 10%,rgba(14,11,11,.25) 65%,rgba(14,11,11,.35))}
+.col .n{position:absolute;left:26px;top:22px;font-family:'Archivo';font-stretch:125%;font-weight:900;font-size:64px;color:var(--red)}
+.col .tt{position:absolute;left:26px;right:22px;bottom:28px;font-family:'Archivo';font-stretch:112%;font-weight:900;font-size:40px;line-height:1.02}
+.col .tt small{display:block;font-family:'Hanken Grotesk';font-size:18px;font-weight:600;color:var(--ink2);margin-top:12px;letter-spacing:0;line-height:1.35}
+.col.red{background:var(--red2)} .col.red .n{color:#fff}
+
+/* 6 título */
+#s6{background:#000}
+#s6 .foto{left:42%;filter:grayscale(.1)}
+#s6 .veu{background:linear-gradient(90deg,#000 0%,rgba(0,0,0,.85) 40%,rgba(0,0,0,.15) 70%,rgba(0,0,0,.4)),linear-gradient(0deg,rgba(0,0,0,.8),transparent 35%)}
+#s6 .tinta{position:absolute;inset:0 0 0 42%;background:linear-gradient(120deg,transparent 40%,rgba(163,18,26,.4));mix-blend-mode:multiply}
+#s6 .bx{position:absolute;left:80px;top:50%;transform:translateY(-52%)}
+#s6 h1{font-size:132px}
+#s6 h1 .l{display:block;overflow:hidden;padding-bottom:.06em}
+#s6 h1 .l>span{display:inline-block}
+#s6 h1 .red{color:var(--red)}
+#s6 .eyb{display:block;margin-bottom:26px}
+#s6 .rod{position:absolute;left:80px;right:80px;bottom:46px;display:flex;justify-content:space-between;align-items:center}
+#s6 .rod .mm{height:46px}
+#s6 .rod .ad{height:30px;opacity:.9}
+#s6 .rod span{font-size:14px;font-weight:700;letter-spacing:.18em;color:var(--ink2)}
+</style></head><body>
+<div id="palco">
+ <div class="cena" id="s1"><div class="bx">
+   <div class="eyb" id="s1e">Reunião de outubro</div>
+   <img class="logo" id="s1l" src="{{img:mm-logo-branco.png}}" alt="">
+   <div class="linha" id="s1i"></div>
+   <div class="data" id="s1d">07 · 10 · 2026</div>
+ </div></div>
+
+ <div class="cena" id="s2">
+   <div class="foto f" style="background-image:url({{img:casa_noite.jpg}})"></div>
+   <div class="foto f" style="background-image:url({{img:casa_xangrila.jpg}})"></div>
+   <div class="foto f" style="background-image:url({{img:ap_americano.jpg}})"></div>
+   <div class="foto f" style="background-image:url({{img:casa_piscina.jpg}})"></div>
+   <div class="foto f" style="background-image:url({{img:chacara_mato_leitao.jpg}})"></div>
+   <div class="foto f" style="background-image:url({{img:ap_americano_int.jpg}})"></div>
+   <div class="veu"></div>
+   <div class="palavra disp" id="s2p">SETEMBRO<span>.</span></div>
+   <div class="sub" id="s2s">Um mês de anúncios no <b>Google</b> e no <b>Meta</b></div>
+   <div class="bat"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+ </div>
+
+ <div class="cena" id="s3">
+   <div class="np" id="n1"><span class="tag">SETEMBRO · META ADS</span><div class="v disp" data-n="197">197</div><div class="l"><b>contatos</b> chegaram pelos anúncios</div></div>
+   <div class="np" id="n2"><span class="tag" style="color:#FFD8D8">SETEMBRO · GOOGLE ADS</span><div class="v disp" data-n="2245" data-mil>2.245</div><div class="l"><b>visitas ao site</b> de quem pesquisou no Google</div></div>
+   <div class="np" id="n3"><span class="tag">PRESENÇA NO GOOGLE</span><div class="v disp" data-n="41" data-suf="%">41%</div><div class="l">a imobiliária que <b>mais apareceu</b> nas buscas da região</div></div>
+ </div>
+
+ <div class="cena" id="s4">
+   <div class="foto" id="s4f" style="background-image:url({{img:equipe.jpg}})"></div><div class="veu"></div>
+   <div class="t1" id="s4a">E uma pergunta guia tudo:</div>
+   <div class="t2 disp" id="s4b"><span class="w"><span>O que</span></span> <span class="w"><span>vira</span></span> <span class="w"><span class="r">negócio?</span></span></div>
+ </div>
+
+ <div class="cena" id="s5">
+   <div class="head eyb" id="s5h">Hoje, na reunião</div>
+   <div class="cols">
+     <div class="col" id="c1"><div class="foto" style="background-image:url({{img:marcelo.jpg}});background-position:62% 30%"></div><div class="veu"></div><span class="n">01</span><div class="tt">O combinado<small>Os quatro pedidos de 22/09 e onde cada um está.</small></div></div>
+     <div class="col" id="c2"><div class="foto" style="background-image:url({{img:casa_noite.jpg}})"></div><div class="veu"></div><span class="n">02</span><div class="tt">Setembro em números<small>Google, Meta e o que cada real entregou.</small></div></div>
+     <div class="col" id="c3"><div class="foto" style="background-image:url({{img:equipe.jpg}})"></div><div class="veu"></div><span class="n">03</span><div class="tt">Do contato ao corretor<small>Os dois caminhos e o retorno da equipe.</small></div></div>
+     <div class="col red" id="c4"><div class="foto" style="background-image:url({{img:chacara_cruzeiro.jpg}});opacity:.28"></div><span class="n">04</span><div class="tt">Próximos passos<small>Teto previsível, catálogo e negócio com origem.</small></div></div>
+   </div>
+ </div>
+
+ <div class="cena" id="s6">
+   <div class="foto" id="s6f" style="background-image:url({{img:marcelo.jpg}});background-position:40% 30%"></div><div class="tinta"></div><div class="veu"></div>
+   <div class="bx"><span class="eyb" id="s6e">Reunião de outubro · 07/10/2026</span>
+     <h1 class="disp"><span class="l"><span>Setembro,</span></span><span class="l"><span>do anúncio</span></span><span class="l"><span>ao <span class="red">corretor.</span></span></span></h1></div>
+   <div class="rod" id="s6r"><img class="mm" src="{{img:mm-logo-branco.png}}" alt=""><span>40 ANOS DE MERCADO</span><img class="ad" src="{{img:adapt-branco.png}}" alt=""></div>
+ </div>
+
+ <div id="grao"></div><div id="flash"></div><div id="preto"></div>
+</div>
+<script>{{gsap}}</script>
+<script>
+(function(){
+ gsap.defaults({lazy:false});
+ var tl=gsap.timeline({paused:true,defaults:{lazy:false}}), E='power3.out', B=0.6;
+ var nf=function(v,mil){var s=Math.round(v).toString();return mil?s.replace(/\B(?=(\d{3})+(?!\d))/g,'.'):s};
+ function cena(id,a,b){tl.set('#'+id,{autoAlpha:1},a).set('#'+id,{autoAlpha:0},b)}
+ function flash(t,o){tl.fromTo('#flash',{opacity:o||.85},{opacity:0,duration:.35,ease:'power2.out',immediateRender:false},t)}
+ gsap.set('.cena',{autoAlpha:0});
+
+ /* 1 abertura 0–3 */
+ cena('s1',0,3.0);
+ tl.to('#preto',{opacity:0,duration:.8},0)
+   .fromTo('#s1i',{scaleX:0},{scaleX:1,duration:.9,ease:'power4.inOut'},0.25)
+   .fromTo('#s1e',{autoAlpha:0,letterSpacing:'.7em'},{autoAlpha:1,letterSpacing:'.2em',duration:1.1,ease:E},0.55)
+   .fromTo('#s1l',{autoAlpha:0,y:24,scale:.94},{autoAlpha:1,y:0,scale:1,duration:.9,ease:E},0.95)
+   .fromTo('#s1d',{autoAlpha:0,y:12},{autoAlpha:1,y:0,duration:.7,ease:E},1.5)
+   .to('#s1 .bx',{scale:1.06,duration:3,ease:'none'},0);
+
+ /* 2 setembro 3.0–6.6: uma foto por batida */
+ cena('s2',3.0,6.6); flash(3.0,.7);
+ gsap.utils.toArray('#s2 .f').forEach(function(f,i){
+   gsap.set(f,{autoAlpha:0});
+   tl.set(f,{autoAlpha:1},3.0+i*B).fromTo(f,{scale:1.16},{scale:1.02,duration:B+.2,ease:'power2.out'},3.0+i*B);
+   if(i<5)tl.set(f,{autoAlpha:0},3.0+(i+1)*B+0.001);
+ });
+ gsap.utils.toArray('#s2 .bat i').forEach(function(b,i){tl.set(b,{background:'#E3343E'},3.0+i*B)});
+ tl.fromTo('#s2p',{clipPath:'inset(0 100% 0 0)',x:-30},{clipPath:'inset(0 0% 0 0)',x:0,duration:.9,ease:'power4.out'},3.15)
+   .to('#s2p',{x:40,duration:3.4,ease:'none'},3.2)
+   .fromTo('#s2s',{autoAlpha:0,y:20},{autoAlpha:1,y:0,duration:.6,ease:E},3.6);
+
+ /* 3 números 6.6–12.0 */
+ cena('s3',6.6,12.0);
+ var nums=[['#n1',6.6,7.15],['#n2',8.85,8.9],['#n3',10.55,10.6]];
+ nums.forEach(function(n,i){
+   var el=document.querySelector(n[0]), v=el.querySelector('.v'), alvo=+v.dataset.n, mil=v.hasAttribute('data-mil'), suf=v.dataset.suf||'', o={x:0};
+   gsap.set(el,{xPercent:i?100:0,autoAlpha:i?1:0});
+   if(i===0)tl.to(el,{autoAlpha:1,duration:.3},n[1]);
+   else{tl.to(el,{xPercent:0,duration:.38,ease:'power4.out'},n[1]).to(nums[i-1][0],{xPercent:-30,autoAlpha:0,duration:.38,ease:'power4.out'},n[1]);flash(n[1],.35)}
+   tl.fromTo(v,{scale:1.25,autoAlpha:0},{scale:1,autoAlpha:1,duration:.5,ease:'power4.out'},n[2]-.05)
+     .to(o,{x:alvo,duration:.8,ease:'power3.out',onUpdate:function(){v.textContent=nf(o.x,mil)+suf}},n[2])
+     .fromTo(el.querySelector('.l'),{autoAlpha:0,y:24},{autoAlpha:1,y:0,duration:.5,ease:E},n[2]+.25)
+     .fromTo(el.querySelector('.tag'),{autoAlpha:0},{autoAlpha:1,duration:.4},n[2]+.1);
+ });
+
+ /* 4 pergunta 12.0–16.8 */
+ cena('s4',12.0,16.8); flash(12.0,.5);
+ tl.fromTo('#s4f',{scale:1.15},{scale:1.0,duration:4.8,ease:'none'},12.0)
+   .fromTo('#s4a',{autoAlpha:0,y:30},{autoAlpha:1,y:0,duration:.7,ease:E},12.15)
+   .to('#s4a',{autoAlpha:0,y:-30,duration:.35,ease:'power2.in'},13.7)
+   .fromTo('#s4b .w>span',{yPercent:110},{yPercent:0,duration:.7,stagger:.22,ease:'power4.out'},13.95)
+   .to('#s4b',{scale:1.05,duration:2.6,ease:'none'},14.0);
+ flash(13.95,.4);
+
+ /* 5 capítulos 16.8–23.4 */
+ cena('s5',16.8,23.4); flash(16.8,.5);
+ tl.fromTo('#s5h',{autoAlpha:0,x:-20},{autoAlpha:1,x:0,duration:.5,ease:E},16.95);
+ [['#c1',17.45],['#c2',18.35],['#c3',19.3],['#c4',21.2]].forEach(function(c){
+   gsap.set(c[0],{clipPath:'inset(100% 0 0 0)'});
+   tl.to(c[0],{clipPath:'inset(0% 0 0 0)',duration:.6,ease:'power4.out'},c[1])
+     .fromTo(c[0]+' .foto',{scale:1.2},{scale:1.02,duration:2.4,ease:'power2.out'},c[1])
+     .fromTo(c[0]+' .n',{autoAlpha:0,y:-20},{autoAlpha:1,y:0,duration:.5,ease:E},c[1]+.2)
+     .fromTo(c[0]+' .tt',{autoAlpha:0,y:30},{autoAlpha:1,y:0,duration:.6,ease:E},c[1]+.3);
+ });
+
+ /* 6 título 23.4–30 */
+ cena('s6',23.4,30.1); flash(23.4,1);
+ gsap.set('#s6 h1 .l>span',{yPercent:110});
+ tl.fromTo('#s6f',{scale:1.2,autoAlpha:.4},{scale:1.03,autoAlpha:1,duration:5.5,ease:'power2.out'},23.4)
+   .fromTo('#s6e',{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:.6,ease:E},23.8)
+   .to('#s6 h1 .l:nth-child(1)>span',{yPercent:0,duration:.8,ease:'power4.out'},24.25)
+   .to('#s6 h1 .l:nth-child(2)>span',{yPercent:0,duration:.8,ease:'power4.out'},25.0)
+   .to('#s6 h1 .l:nth-child(3)>span',{yPercent:0,duration:.8,ease:'power4.out'},25.45)
+   .fromTo('#s6r',{autoAlpha:0,y:20},{autoAlpha:1,y:0,duration:.8,ease:E},26.6)
+   .to('#preto',{opacity:1,duration:1.1,ease:'power2.in'},28.8)
+   .to({}, {duration:.01},30);
+
+ window.__dur=30; window.__seek=function(t){tl.seek(t,false)}; window.__seek(0); window.__ready=true;
+})();
+</script></body></html>
