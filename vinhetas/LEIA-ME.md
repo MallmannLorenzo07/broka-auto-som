@@ -30,3 +30,9 @@
 ## VAGALUME (pitch de produto conceito, 60 s, voz ElevenLabs "Brian")
 - `vagalume/motion/`: `plano.py` → `audio.py` → `build.py`, depois `node motion/render.js $PWD/vagalume/motion/vagalume.html saida.mp4 vagalume/motion/mix.m4a 30`
 - Vaga-lumes desenhados em canvas como função do tempo (renderização quadro a quadro); lata em CSS.
+
+## VAGALUME em 3D + fotos de produto
+- `vagalume/3d/`: cena 3D (Three.js r147 em `lib/`): lata torneada com rótulo, ingredientes, vaga-lumes e cenários da narrativa (`cenarios.js`: escritório 15h → alerta → pôr do sol no campo → floresta → estúdio → noite).
+- Montar: `python3 vagalume/3d/build.py` (usa `vagalume/motion/tempos.json` e as fotos de `vagalume/fotos/` — ajuste o caminho `fotos_jpg` no build se preciso).
+- Renderizar: `node vagalume/3d/render3d.js $PWD/vagalume/3d/vagalume3d.html saida.mp4 vagalume/motion/mix.m4a 30` (WebGL via SwiftShader; ~1,8 s por quadro). Para retomar: `render_parte.js pagina.html parte.mp4 QUADRO_INICIAL`.
+- Fotos de produto: `python3 vagalume/3d/build_fotos.py && node vagalume/3d/fotografa.js $PWD/vagalume/3d/fotos.html pasta_saida` → 8 fotos (estúdio frente/perfil/de cima, ingredientes, macro, noite, mesa 15h, dupla). Prontas em `vagalume/fotos/`.

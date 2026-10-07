@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<title>VAGALUME · Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;700;900&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--noite:#070B18;--noite2:#0E1530;--azul:#1B2A57;--luz:#E9FF70;--ambar:#FFC94A;--hib:#E2366E;--gua:#D2452F;--lim:#9BD14B;--creme:#FFF6E2;--papel:#F3ECDD;--tinta:#151A2B;--mudo:#8C93AD}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1600px;height:900px;overflow:hidden;background:#000;color:var(--creme);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased}
+.uni{font-family:'Unbounded',sans-serif}
+.ser{font-family:'Instrument Serif',serif;font-weight:400}
+#palco{position:relative;width:1600px;height:900px;overflow:hidden;perspective:1500px;background:radial-gradient(90% 80% at 50% 110%,#16224a 0%,var(--noite) 60%)}
+#ceu{position:absolute;inset:0;z-index:5;pointer-events:none;width:1600px;height:900px}
+.lata{display:none!important}
+#s4 .orb{visibility:hidden}
+.cena{position:absolute;inset:0;visibility:hidden;z-index:10;transform-style:preserve-3d}
+.m{display:block;overflow:hidden;padding-bottom:.1em}.m>span{display:block}
+#cap{position:absolute;left:64px;top:52px;z-index:30;display:flex;align-items:center;gap:14px;font-size:13px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--mudo)}
+#cap b{font-family:'Unbounded';font-weight:500;color:var(--luz);letter-spacing:.05em}
+#cap i{display:block;width:40px;height:1px;background:currentColor;opacity:.6}
+#marca{position:absolute;right:64px;top:48px;z-index:30;font-family:'Unbounded';font-weight:700;font-size:15px;letter-spacing:.3em;color:var(--creme);opacity:.7}
+#marca span{color:var(--luz)}
+#flash{position:absolute;inset:0;z-index:45;background:radial-gradient(circle at 50% 50%,#fbffd0,#e9ff70 40%,rgba(233,255,112,0) 75%);opacity:0;pointer-events:none}
+#preto{position:absolute;inset:0;background:#000;z-index:50;opacity:1}
+#grao{position:absolute;inset:0;z-index:40;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* lata (cilindro em CSS: rótulo desliza por baixo do brilho) */
+.lata{position:absolute;width:230px;height:440px}
+.lata .corpo{position:absolute;left:0;right:0;top:22px;bottom:16px;border-radius:26px/16px;overflow:hidden;background:#0d1430}
+.lata .rot{position:absolute;top:0;bottom:0;left:0;width:1380px;background-repeat:repeat-x}
+.lata .rot .faixa{position:absolute;left:0;width:1380px;top:58%;height:22%;background:linear-gradient(90deg,var(--hib),#ff6f8f 30%,var(--hib) 50%,#ff6f8f 80%,var(--hib))}
+.lata .rot .nm{position:absolute;top:34px;font-family:'Unbounded';font-weight:900;font-size:27px;letter-spacing:.08em;color:var(--luz);writing-mode:vertical-rl;transform:rotate(180deg);text-shadow:0 0 18px rgba(233,255,112,.65)}
+.lata .rot .pts{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(233,255,112,.9) 0 2px,transparent 3px),radial-gradient(circle,rgba(255,201,74,.6) 0 1.5px,transparent 2.5px);background-size:60px 70px,44px 52px;background-position:0 0,22px 30px;opacity:.55;-webkit-mask:linear-gradient(180deg,#000 0 52%,transparent 58%)}
+.lata .rot .sub{position:absolute;top:83%;width:150px;text-align:center;font-family:'Unbounded';font-weight:500;font-size:10px;letter-spacing:.25em;color:var(--creme)}
+.lata .brilho{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.65) 0%,rgba(0,0,0,.1) 18%,rgba(255,255,255,.28) 30%,rgba(255,255,255,.05) 42%,rgba(0,0,0,.05) 62%,rgba(0,0,0,.55) 88%,rgba(0,0,0,.8) 100%)}
+.lata .tampa{position:absolute;left:6px;right:6px;top:0;height:44px;border-radius:50%;background:radial-gradient(60% 60% at 50% 45%,#e9edf5,#9aa3b5 60%,#5d6578);box-shadow:inset 0 -6px 8px rgba(0,0,0,.35)}
+.lata .tampa:after{content:'';position:absolute;left:38%;top:30%;width:24%;height:30%;border-radius:40%;border:2px solid rgba(60,66,82,.6)}
+.lata .base{position:absolute;left:10px;right:10px;bottom:0;height:30px;border-radius:50%;background:linear-gradient(180deg,#7d8597,#3b4152)}
+.lata .aura{position:absolute;left:-120px;right:-120px;top:-40px;bottom:-60px;background:radial-gradient(50% 50% at 50% 55%,rgba(233,255,112,.35),rgba(233,255,112,0) 70%);filter:blur(10px)}
+
+/* 1 gancho */
+#s1 .hora{text-shadow:0 4px 40px rgba(0,0,0,.45);position:absolute;left:0;right:0;top:250px;text-align:center;font-family:'Unbounded';font-weight:300;font-size:210px;letter-spacing:-.02em;color:var(--creme)}
+#s1 .hora i{font-style:normal;color:var(--luz)}
+#s1 .frase{position:absolute;left:0;right:0;top:560px;text-align:center;font-size:52px;line-height:1.15;text-shadow:0 2px 24px rgba(0,0,0,.6)}
+#s1 .frase em{font-family:'Instrument Serif';font-style:italic;color:var(--ambar)}
+#s1 .bat{position:absolute;left:50%;top:700px;margin-left:-90px;width:180px;height:56px;border:3px solid rgba(255,246,226,.5);border-radius:12px;padding:6px}
+#s1 .bat:after{content:'';position:absolute;right:-12px;top:16px;width:8px;height:18px;border-radius:0 4px 4px 0;background:rgba(255,246,226,.5)}
+#s1 .bat b{display:block;height:100%;border-radius:6px;background:var(--gua);transform-origin:0 50%}
+
+/* 2 problema */
+#s2{background:linear-gradient(90deg,rgba(20,4,8,.55),rgba(20,4,8,.15) 45%,rgba(20,4,8,0))}
+#s2 h2{position:absolute;left:96px;top:130px;font-family:'Unbounded';font-weight:700;font-size:60px;line-height:1.05;max-width:16ch}
+#s2 h2 em{font-family:'Instrument Serif';font-style:italic;font-weight:400;color:#ff7a8a;font-size:1.15em}
+#s2 svg{position:absolute;left:640px;top:150px}
+#s2 .rot{font-family:'Unbounded';font-weight:500;font-size:16px;letter-spacing:.12em;fill:var(--creme)}
+
+/* 3 revelação */
+#s3 .lata{left:50%;top:150px;margin-left:-115px}
+#s3 .nome{position:absolute;left:0;right:0;top:600px;text-align:center;font-family:'Unbounded';font-weight:900;font-size:120px;letter-spacing:.06em;color:var(--luz);text-shadow:0 0 40px rgba(233,255,112,.55)}
+#s3 .slogan{position:absolute;left:0;right:0;top:752px;text-align:center;font-family:'Instrument Serif';font-style:italic;font-size:48px;color:var(--creme)}
+
+/* 4 fórmula */
+#s4 .lata{left:180px;top:220px}
+#s4 h2{position:absolute;left:600px;top:150px;font-family:'Unbounded';font-weight:700;font-size:54px;line-height:1.05}
+#s4 h2 em{font-family:'Instrument Serif';font-style:italic;font-weight:400;color:var(--luz);font-size:1.15em}
+#s4 .ings{position:absolute;left:600px;top:320px;display:flex;gap:40px}
+#s4 .ing{width:250px}
+#s4 .orb{width:150px;height:150px;border-radius:50%;position:relative}
+#s4 .orb:after{content:'';position:absolute;inset:-26px;border-radius:50%;background:inherit;filter:blur(30px);opacity:.45;z-index:-1}
+#s4 .o1{background:radial-gradient(circle at 35% 30%,#ff9a7a,var(--gua) 55%,#6b1410)}
+#s4 .o2{background:radial-gradient(circle at 35% 30%,#ff9cc0,var(--hib) 55%,#6a0f30)}
+#s4 .o3{background:radial-gradient(circle at 35% 30%,#e6ffa8,var(--lim) 55%,#3f6a14)}
+#s4 .ing .t{margin-top:26px;font-family:'Unbounded';font-weight:700;font-size:28px}
+#s4 .ing .d{margin-top:8px;font-size:18px;color:var(--mudo)}
+#s4 .chip{position:absolute;left:600px;top:660px;display:flex;align-items:center;gap:18px;border:1px solid rgba(233,255,112,.45);border-radius:99px;padding:18px 30px 18px 18px;background:rgba(233,255,112,.07)}
+#s4 .chip b{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--luz);color:var(--noite);font-family:'Unbounded';font-size:24px}
+#s4 .chip span{font-size:26px} #s4 .chip span em{font-family:'Instrument Serif';font-style:italic;color:var(--luz);font-size:1.15em}
+
+/* 5 números */
+#s5 .grade{position:absolute;left:80px;right:80px;top:150px;bottom:110px;display:grid;grid-template-columns:1fr 420px 1fr;grid-template-rows:1fr 1fr;gap:26px}
+#k1{grid-column:1;grid-row:1}#k2{grid-column:3;grid-row:1}#k3{grid-column:1;grid-row:2}#k4{grid-column:3;grid-row:2}
+#s5 .ft{grid-column:2;grid-row:1/3;position:relative;border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(233,255,112,.18)}
+#s5 .ft img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+#s5 .leg5{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-family:'Unbounded';font-weight:500;font-size:13px;letter-spacing:.3em;color:rgba(255,246,226,.85)}
+#s5 .k{position:relative;border-radius:30px;padding:36px 40px;background:linear-gradient(160deg,rgba(27,42,87,.62),rgba(14,21,48,.45));backdrop-filter:blur(6px);border:1px solid rgba(140,147,173,.22);overflow:hidden}
+#s5 .k .v{font-family:'Unbounded';font-weight:900;font-size:96px;line-height:.9;color:var(--luz);text-shadow:0 0 30px rgba(233,255,112,.35);white-space:nowrap}
+#s5 .k .v small{font-size:.42em;font-weight:500;color:var(--creme);margin-left:10px;text-shadow:none}
+#s5 .k .l{position:absolute;left:46px;bottom:36px;font-size:24px;color:var(--creme)}
+#s5 .k .l span{color:var(--mudo)}
+#s5 #k2 .v{color:var(--ambar)} #s5 #k3 .v{color:#ff8fb1} #s5 #k4 .v{color:var(--lim)}
+
+/* 6 curva */
+#s6{background:linear-gradient(0deg,rgba(3,4,10,.75),rgba(3,4,10,.25) 55%,rgba(3,4,10,0))}
+#s6 h2{position:absolute;left:96px;top:130px;font-family:'Unbounded';font-weight:700;font-size:56px;line-height:1.05;max-width:17ch}
+#s6 h2 em{font-family:'Instrument Serif';font-style:italic;font-weight:400;color:var(--luz);font-size:1.15em}
+#s6 svg{position:absolute;left:96px;top:280px}
+#s6 .leg{position:absolute;right:96px;top:150px;display:flex;flex-direction:column;gap:14px;font-size:20px}
+#s6 .leg i{display:inline-block;width:34px;height:4px;border-radius:2px;margin-right:12px;vertical-align:middle}
+#s6 .nota{position:absolute;right:96px;bottom:70px;font-size:15px;color:var(--mudo);letter-spacing:.06em}
+
+/* 7 o outro lado (papel) */
+#s7{background:var(--papel);color:var(--tinta)}
+#s7 .eyb{position:absolute;left:96px;top:120px;font-size:14px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#a0522d}
+#s7 h2{position:absolute;left:96px;top:150px;font-family:'Unbounded';font-weight:900;font-size:76px;line-height:1;color:var(--tinta)}
+#s7 h2 em{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-size:1.15em;color:var(--hib)}
+#s7 .cards{position:absolute;left:96px;right:96px;top:330px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+#s7 .card{position:relative;height:440px;border-radius:28px;background:#fffaf0;border:1px solid #e3d9c4;padding:34px 30px;box-shadow:0 18px 40px rgba(60,40,10,.08)}
+#s7 .card .ic{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;font-family:'Unbounded';font-weight:900;font-size:30px;color:#fff}
+#s7 .card .t{margin-top:30px;font-family:'Unbounded';font-weight:700;font-size:30px;line-height:1.1}
+#s7 .card .d{margin-top:16px;font-size:21px;line-height:1.4;color:#5a5446}
+#s7 .card .tag{position:absolute;left:30px;bottom:30px;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#a0522d}
+
+/* 8 fecho */
+#s8 .lata{left:50%;top:120px;margin-left:-115px}
+#s8 .nome{position:absolute;left:0;right:0;top:590px;text-align:center;font-family:'Unbounded';font-weight:900;font-size:110px;letter-spacing:.06em;color:var(--luz);text-shadow:0 0 50px rgba(233,255,112,.6)}
+#s8 .slogan{position:absolute;left:0;right:0;top:735px;text-align:center;font-family:'Instrument Serif';font-style:italic;font-size:44px}
+#s8 .rod{position:absolute;left:0;right:0;bottom:44px;text-align:center;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:var(--mudo)}
+</style></head><body>
+<div id="palco">
+ <canvas id="ceu" width="1600" height="900"></canvas>
+ <div id="cap"><b id="capn">01</b><i></i><span id="capt">O problema</span></div>
+ <div id="marca">VAGA<span>LUME</span></div>
+
+ <section class="cena" id="s1">
+  <div class="hora" id="hora">15<i id="dois">:</i>00</div>
+  <div class="frase"><span class="m"><span>A energia acaba.</span></span><span class="m"><span><em>E o café já não resolve.</em></span></span></div>
+  <div class="bat" id="bat"><b id="batb"></b></div>
+ </section>
+
+ <section class="cena" id="s2">
+  <h2><span class="m"><span>Energéticos comuns:</span></span><span class="m"><span>um pico, e depois</span></span><span class="m"><span><em>a conta chega.</em></span></span></h2>
+  <svg width="780" height="562" viewBox="0 0 860 620" style="left:740px;top:220px">
+   <line x1="40" y1="540" x2="840" y2="540" stroke="rgba(255,246,226,.25)" stroke-width="2"/>
+   <line x1="40" y1="40" x2="40" y2="540" stroke="rgba(255,246,226,.25)" stroke-width="2"/>
+   <text x="50" y="30" class="rot" style="font-size:13px;fill:#8C93AD">ENERGIA</text>
+   <text x="760" y="575" class="rot" style="font-size:13px;fill:#8C93AD">TEMPO</text>
+   <path id="pico" d="M40 430 C150 430 180 400 230 120 C260 -10 300 120 330 300 C360 470 400 560 470 540 C560 515 700 470 840 470" fill="none" stroke="#ff5a6e" stroke-width="7" stroke-linecap="round"/>
+   <circle id="pdot" cx="248" cy="80" r="12" fill="#ff5a6e"/>
+   <text id="tpico" x="270" y="70" class="rot" style="fill:#ff9aa6">PICO</text>
+   <circle id="qdot" cx="455" cy="545" r="12" fill="#ff5a6e"/>
+   <text id="tqueda" x="480" y="600" class="rot" style="fill:#ff9aa6">QUEDA · 15h40</text>
+  </svg>
+ </section>
+
+ <section class="cena" id="s3">
+  <div class="lata" id="lata3"><div class="aura"></div><div class="corpo"><div class="rot">
+    <div class="faixa"></div><div class="pts"></div>
+    <div class="nm" style="left:92px">VAGALUME</div><div class="nm" style="left:437px">VAGALUME</div><div class="nm" style="left:782px">VAGALUME</div><div class="nm" style="left:1127px">VAGALUME</div>
+    <div class="sub" style="left:40px">GUARANÁ · HIBISCO</div><div class="sub" style="left:385px">350 ML · ZERO AÇÚCAR</div><div class="sub" style="left:730px">GUARANÁ · HIBISCO</div><div class="sub" style="left:1075px">350 ML · ZERO AÇÚCAR</div>
+   </div><div class="brilho"></div></div><div class="tampa"></div><div class="base"></div></div>
+  <div class="nome" id="nome3">VAGALUME</div>
+  <div class="slogan" id="slogan3">Energia que acende devagar.</div>
+ </section>
+
+ <section class="cena" id="s4">
+  <div class="lata" id="lata4"><div class="aura"></div><div class="corpo"><div class="rot">
+    <div class="faixa"></div><div class="pts"></div>
+    <div class="nm" style="left:92px">VAGALUME</div><div class="nm" style="left:437px">VAGALUME</div><div class="nm" style="left:782px">VAGALUME</div><div class="nm" style="left:1127px">VAGALUME</div>
+    <div class="sub" style="left:40px">GUARANÁ · HIBISCO</div><div class="sub" style="left:385px">350 ML · ZERO AÇÚCAR</div><div class="sub" style="left:730px">GUARANÁ · HIBISCO</div><div class="sub" style="left:1075px">350 ML · ZERO AÇÚCAR</div>
+   </div><div class="brilho"></div></div><div class="tampa"></div><div class="base"></div></div>
+  <h2><span class="m"><span>Três ingredientes.</span></span><span class="m"><span><em>Nenhum de laboratório.</em></span></span></h2>
+  <div class="ings">
+   <div class="ing" id="i1"><div class="orb o1"></div><div class="t">Guaraná</div><div class="d">da Amazônia · cafeína natural</div></div>
+   <div class="ing" id="i2"><div class="orb o2"></div><div class="t">Hibisco</div><div class="d">cor, acidez e antioxidantes</div></div>
+   <div class="ing" id="i3"><div class="orb o3"></div><div class="t">Limão-cravo</div><div class="d">cítrico brasileiro, refrescante</div></div>
+  </div>
+  <div class="chip" id="i4"><b>+</b><span>L-teanina · <em>foco sem tremedeira</em></span></div>
+ </section>
+
+ <section class="cena" id="s5">
+  <div class="grade">
+   <div class="ft" id="ft"><img id="fa" src="{{foto:01-estudio-frente.jpg}}"><img id="fb" src="{{foto:02-estudio-perfil.jpg}}"><img id="fc" src="{{foto:03-estudio-tres-quartos-alto.jpg}}"><img id="fd" src="{{foto:05-macro-condensacao.jpg}}"><div class="leg5" id="leg5">FRENTE</div></div>
+   <div class="k" id="k1"><div class="v"><span class="n" data-n="80">0</span><small>mg</small></div><div class="l">de cafeína natural <span>· por lata de 350 ml</span></div></div>
+   <div class="k" id="k2"><div class="v"><span class="n" data-n="0">0</span><small>g</small></div><div class="l">de açúcar <span>· adoçado com estévia</span></div></div>
+   <div class="k" id="k3"><div class="v"><span class="n" data-n="12">0</span><small>kcal</small></div><div class="l">por lata</div></div>
+   <div class="k" id="k4"><div class="v"><span class="n" data-n="100">0</span><small>%</small></div><div class="l">lata de alumínio reciclável</div></div>
+  </div>
+ </section>
+
+ <section class="cena" id="s6">
+  <h2><span class="m"><span>Sobe devagar.</span></span><span class="m"><span><em>Desce sem tombo.</em></span></span></h2>
+  <div class="leg"><div><i style="background:rgba(255,90,110,.5)"></i>Energético comum</div><div><i style="background:#E9FF70;box-shadow:0 0 12px #E9FF70"></i>Vagalume</div></div>
+  <svg width="1408" height="470" viewBox="0 0 1408 470">
+   <line x1="0" y1="440" x2="1408" y2="440" stroke="rgba(255,246,226,.2)" stroke-width="2"/>
+   <path id="cpico" d="M0 380 C160 380 210 350 270 90 C300 -20 350 110 390 260 C430 410 480 470 560 440 C700 400 1000 410 1408 410" fill="none" stroke="rgba(255,90,110,.45)" stroke-width="5" stroke-dasharray="10 12"/>
+   <path id="cvaga" d="M0 380 C200 380 330 300 470 210 C620 115 820 110 980 150 C1120 185 1250 260 1408 300" fill="none" stroke="#E9FF70" stroke-width="8" stroke-linecap="round" style="filter:drop-shadow(0 0 10px rgba(233,255,112,.8))"/>
+   <circle id="cdot" r="13" fill="#fbffd0" style="filter:drop-shadow(0 0 14px #E9FF70)"/>
+  </svg>
+  <div class="nota">Curva ilustrativa · produto conceito</div>
+ </section>
+
+ <section class="cena" id="s7">
+  <div class="eyb">O outro lado</div>
+  <h2><span class="m"><span>Mas vamos ser <em>honestos.</em></span></span></h2>
+  <div class="cards">
+   <div class="card" id="c1"><div class="ic" style="background:#D2452F">!</div><div class="t">Tem cafeína</div><div class="d">Não é indicado para crianças nem para gestantes.</div><div class="tag">80 mg por lata</div></div>
+   <div class="card" id="c2"><div class="ic" style="background:#1B2A57">☾</div><div class="t">Depois das 16h</div><div class="d">Pode atrapalhar o seu sono.</div><div class="tag">Tome até o meio da tarde</div></div>
+   <div class="card" id="c3"><div class="ic" style="background:#E2366E">~</div><div class="t">Estévia</div><div class="d">Deixa um leve gosto residual que nem todo mundo gosta.</div><div class="tag">Zero açúcar tem preço</div></div>
+   <div class="card" id="c4"><div class="ic" style="background:#3f6a14">R$</div><div class="t">R$ 8,90</div><div class="d">Mais caro que um refrigerante.</div><div class="tag">Ingrediente nativo custa</div></div>
+  </div>
+ </section>
+
+ <section class="cena" id="s8">
+  <div class="lata" id="lata8"><div class="aura"></div><div class="corpo"><div class="rot">
+    <div class="faixa"></div><div class="pts"></div>
+    <div class="nm" style="left:92px">VAGALUME</div><div class="nm" style="left:437px">VAGALUME</div><div class="nm" style="left:782px">VAGALUME</div><div class="nm" style="left:1127px">VAGALUME</div>
+    <div class="sub" style="left:40px">GUARANÁ · HIBISCO</div><div class="sub" style="left:385px">350 ML · ZERO AÇÚCAR</div><div class="sub" style="left:730px">GUARANÁ · HIBISCO</div><div class="sub" style="left:1075px">350 ML · ZERO AÇÚCAR</div>
+   </div><div class="brilho"></div></div><div class="tampa"></div><div class="base"></div></div>
+  <div class="nome" id="nome8">VAGALUME</div>
+  <div class="slogan" id="slogan8">Pra quem quer energia, sem apagar depois.</div>
+  <div class="rod" id="rod8">Produto conceito criado para pitch · 350 ml · 2026</div>
+ </section>
+
+ <div id="flash"></div><div id="grao"></div><div id="preto"></div>
+</div>
+<script>{{gsap}}</script>
+<script>{{three}}</script>
+<script>
+gsap.defaults({lazy:false});
+var T={{tempos}}, DUR=T.fim, E='power3.out';
+var tl=gsap.timeline({paused:true});
+var ordem=['s1','s2','s3','s4','s5','s6','s7','s8'];
+gsap.set('.cena',{autoAlpha:0});
+ordem.forEach(function(id,i){
+  var a=T[id], b=i<ordem.length-1?T[ordem[i+1]]:DUR+1;
+  tl.set('#'+id,{visibility:'visible'},a).fromTo('#'+id,{opacity:i?0:1},{opacity:1,duration:i?.5:.01,immediateRender:false},a);
+  if(i<ordem.length-1)tl.set('#'+id,{visibility:'hidden'},b+.55);
+});
+function flash(t,o){tl.fromTo('#flash',{opacity:o||.8},{opacity:0,duration:.6,ease:'power2.out',immediateRender:false},t)}
+tl.to('#preto',{opacity:0,duration:1.2},0);
+// capítulos
+var caps=[['s1','01','O problema'],['s3','02','O produto'],['s4','03','A fórmula'],['s5','04','Os números'],['s6','05','A curva'],['s7','06','O outro lado'],['s8','07','Vagalume']];
+caps.forEach(function(c){tl.fromTo('#cap',{autoAlpha:0,x:-14},{autoAlpha:1,x:0,duration:.6,ease:E,immediateRender:false},T[c[0]]+.15)});
+function capitulo(t){var c=caps[0];caps.forEach(function(k){if(t>=T[k[0]])c=k});document.getElementById('capn').textContent=c[1];document.getElementById('capt').textContent=c[2]}
+tl.to('#cap',{autoAlpha:0,duration:.4},T.s3-.4);
+tl.to('#cap',{color:'#5a5446',duration:.4},T.s7).to('#cap',{color:'#8C93AD',duration:.4},T.s8).to('#marca',{autoAlpha:0,duration:.3},T.s7);
+tl.to('#marca',{autoAlpha:0,duration:.6},T.s8+.2);
+
+/* 1 gancho */
+tl.fromTo('#hora',{autoAlpha:0,y:30,z:-600,rotationX:35,letterSpacing:'.1em',transformPerspective:1200},{autoAlpha:1,y:0,z:0,rotationX:0,letterSpacing:'-.02em',duration:1.6,ease:E},T.relogio)
+  .to('#hora',{rotationY:-14,z:-120,duration:T.s2-T.relogio,ease:'none'},T.relogio+1.6)
+  .fromTo('#s1 .frase .m>span',{yPercent:110},{yPercent:0,duration:.9,stagger:.9,ease:'power4.out'},T.t1)
+  .fromTo('#bat',{autoAlpha:0},{autoAlpha:1,duration:.5},T.t1+.6)
+  .fromTo('#batb',{scaleX:.7},{scaleX:.06,duration:2.4,ease:'power2.in'},T.t1+.6);
+for(var k=0;k<6;k++)tl.set('#dois',{opacity:k%2?1:.15},T.relogio+.5+k*.5);
+
+/* 2 problema */
+var lp=document.getElementById('pico').getTotalLength();
+tl.fromTo('#s2 svg',{rotationY:-48,rotationX:10,z:-400,transformPerspective:1300,transformOrigin:'0% 50%'},{rotationY:-16,rotationX:4,z:0,duration:T.s3-T.s2,ease:'power2.out'},T.s2)
+  .fromTo('#s2 h2',{rotationY:22,z:-150,transformPerspective:1300,transformOrigin:'0% 50%'},{rotationY:6,z:0,duration:T.s3-T.s2,ease:'power2.out'},T.s2);
+gsap.set('#pico',{strokeDasharray:lp,strokeDashoffset:lp});
+tl.fromTo('#s2 h2 .m>span',{yPercent:110},{yPercent:0,duration:.8,stagger:.35,ease:'power4.out'},T.s2+.2)
+  .to('#pico',{strokeDashoffset:lp*.62,duration:1.1,ease:'power2.out'},T.pico)
+  .to('#pico',{strokeDashoffset:0,duration:1.6,ease:'power2.inOut'},T.queda-.5)
+  .fromTo(['#pdot','#tpico'],{autoAlpha:0,scale:0,transformOrigin:'50% 50%'},{autoAlpha:1,scale:1,duration:.4,ease:'back.out(3)'},T.pico+.9)
+  .fromTo(['#qdot','#tqueda'],{autoAlpha:0,scale:0,transformOrigin:'50% 50%'},{autoAlpha:1,scale:1,duration:.4,ease:'back.out(3)'},T.queda+.6)
+  .fromTo('#s2',{backgroundColor:'rgba(120,10,30,0)'},{backgroundColor:'rgba(120,10,30,.25)',duration:.3,yoyo:true,repeat:1,immediateRender:false},T.queda+.6);
+
+/* 3 revelação */
+flash(T.lata,.9);
+tl.fromTo('#lata3',{autoAlpha:0,scale:.6,y:40},{autoAlpha:1,scale:1,y:0,duration:1.0,ease:'back.out(1.6)'},T.lata)
+  .fromTo('#nome3',{autoAlpha:0,rotationX:-85,z:-200,transformPerspective:1000,transformOrigin:'50% 100%',filter:'blur(8px)'},{autoAlpha:1,rotationX:0,z:0,filter:'blur(0px)',duration:1.2,ease:'back.out(1.4)'},T.nome)
+  .fromTo('#slogan3',{autoAlpha:0,y:20},{autoAlpha:1,y:0,duration:.8,ease:E},T.slogan);
+
+/* 4 fórmula */
+tl.fromTo('#lata4',{autoAlpha:0,x:-80,rotation:-8},{autoAlpha:1,x:0,rotation:-4,duration:1.0,ease:E},T.s4)
+  .fromTo('#s4 h2 .m>span',{yPercent:110},{yPercent:0,duration:.8,stagger:.3,ease:'power4.out'},T.s4+.2);
+['#i1','#i2','#i3'].forEach(function(s,i){var t=T['i'+(i+1)];
+  tl.fromTo(s+' .orb',{scale:0},{scale:1,duration:.7,ease:'back.out(2)'},t).fromTo(s+' .t,'+s+' .d',{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:.5,stagger:.08,ease:E},t+.15)});
+tl.fromTo('#i4',{autoAlpha:0,y:24},{autoAlpha:1,y:0,duration:.6,ease:E},T.i4);
+gsap.set(['#i1 .t','#i1 .d','#i2 .t','#i2 .d','#i3 .t','#i3 .d'],{autoAlpha:0});gsap.set('.orb',{scale:0});
+
+/* 5 números */
+['#k1','#k2','#k3','#k4'].forEach(function(s,i){var t=T['k'+(i+1)], el=document.querySelector(s+' .n'), alvo=+el.dataset.n, o={x:0};
+  tl.fromTo(s,{autoAlpha:0,z:-900,rotationX:60,rotationY:(i%2?-25:25),transformPerspective:1400},{autoAlpha:1,z:0,rotationX:0,rotationY:0,duration:.9,ease:'power3.out'},t)
+    .to(o,{x:alvo,duration:1.0,ease:'power3.out',onUpdate:function(){el.textContent=Math.round(o.x)}},t+.1);
+  gsap.set(s,{autoAlpha:0});});
+
+tl.fromTo('#s5 .grade',{rotationY:-10,rotationX:6,transformPerspective:1800},{rotationY:8,rotationX:-4,duration:T.s6-T.s5+.6,ease:'none'},T.s5);
+tl.fromTo('#ft',{autoAlpha:0,rotationY:35,z:-500,transformPerspective:1400},{autoAlpha:1,rotationY:0,z:0,duration:1.0,ease:'power3.out'},T.s5+.15);
+[['#fa','k1','FRENTE'],['#fb','k2','PERFIL'],['#fc','k3','DE CIMA'],['#fd','k4','DETALHE']].forEach(function(f,i){var t=i?T[f[1]]:T.s5+.15;
+  tl.fromTo(f[0],{opacity:0,scale:1.14},{opacity:1,scale:1.0,duration:i?.6:.01,ease:'power2.out',immediateRender:false},t).to(f[0],{scale:.98,duration:3,ease:'none'},t+.6)
+    .set('#leg5',{textContent:f[2]},t)});
+/* 6 curva */
+var lc=document.getElementById('cvaga').getTotalLength(), lk=document.getElementById('cpico').getTotalLength(), cv=document.getElementById('cvaga');
+gsap.set('#cvaga',{strokeDasharray:lc,strokeDashoffset:lc}); gsap.set('#cpico',{opacity:0});
+var pc={p:0};
+function poeDot(){var q=cv.getPointAtLength(lc*pc.p);gsap.set('#cdot',{attr:{cx:q.x,cy:q.y}})}
+tl.fromTo('#s6 svg',{rotationX:58,z:-300,transformPerspective:1100,transformOrigin:'50% 100%'},{rotationX:22,z:0,duration:T.s7-T.s6,ease:'power2.out'},T.s6);
+tl.fromTo('#s6 h2 .m>span',{yPercent:110},{yPercent:0,duration:.8,stagger:(T.desce-T.curva)*.8,ease:'power4.out'},T.curva)
+  .to('#cpico',{opacity:1,duration:.6},T.s6+.3)
+  .to('#cvaga',{strokeDashoffset:0,duration:(T.s7-T.curva)*.85,ease:'power1.inOut'},T.curva)
+  .fromTo(pc,{p:0},{p:1,duration:(T.s7-T.curva)*.85,ease:'power1.inOut',onUpdate:poeDot,immediateRender:false},T.curva);
+poeDot();
+
+/* 7 outro lado */
+tl.fromTo('#s7 h2 .m>span',{yPercent:110},{yPercent:0,duration:.8,ease:'power4.out'},T.s7+.3)
+  .fromTo('#s7 .eyb',{autoAlpha:0},{autoAlpha:1,duration:.5},T.s7+.2);
+['#c1','#c2','#c3','#c4'].forEach(function(s,i){tl.fromTo(s,{autoAlpha:0,rotationY:-100,z:-200,transformPerspective:1400,transformOrigin:'0% 50%'},{autoAlpha:1,rotationY:0,z:0,duration:.9,ease:'back.out(1.2)'},T['c'+(i+1)])});
+tl.fromTo('#s7 .cards',{rotationX:14,transformPerspective:1800,transformOrigin:'50% 0%'},{rotationX:4,duration:T.s8-T.s7,ease:'none'},T.s7);
+
+tl.fromTo('#s7',{xPercent:100,rotationY:-28,transformPerspective:1600,transformOrigin:'0% 50%'},{xPercent:0,rotationY:0,duration:.9,ease:'power3.inOut',immediateRender:false},T.s7-.15);
+tl.fromTo('#preto',{opacity:0},{opacity:.92,duration:.35,ease:'power2.in',immediateRender:false},T.s8-.3).to('#preto',{opacity:0,duration:1.4,ease:'power2.out'},T.s8+.1);
+/* 8 fecho */
+flash(T.s8+.2,.5);
+tl.fromTo('#lata8',{autoAlpha:0,scale:.8,y:60},{autoAlpha:1,scale:1,y:0,duration:1.2,ease:E},T.s8+.2)
+  .fromTo('#nome8',{autoAlpha:0,rotationX:-85,z:-200,transformPerspective:1000,transformOrigin:'50% 100%',filter:'blur(8px)'},{autoAlpha:1,rotationX:0,z:0,filter:'blur(0px)',duration:1.2,ease:'back.out(1.4)'},T.fnome)
+  .fromTo('#slogan8',{autoAlpha:0,y:20},{autoAlpha:1,y:0,duration:.8,ease:E},T.fslogan)
+  .fromTo('#rod8',{autoAlpha:0},{autoAlpha:1,duration:.8},T.fslogan+1.0)
+  .to('#preto',{opacity:1,duration:1.3,ease:'power2.in'},DUR-1.4)
+  .to({},{duration:.01},DUR);
+
+/* rótulo das latas girando (função do tempo) */
+
+window.__dur=DUR; window.__seek=function(t){tl.seek(t,false);capitulo(t);V3.render(t)};
+Promise.all([document.fonts.load('900 150px Unbounded'),document.fonts.load('500 34px Unbounded'),document.fonts.load('italic 64px "Instrument Serif"')]).then(function(){V3.init(T);window.__seek(0);window.__ready=true});
+</script></body></html>
