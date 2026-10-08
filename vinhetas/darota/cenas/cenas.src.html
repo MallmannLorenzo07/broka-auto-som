@@ -44,6 +44,19 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family
 #c2 .ig b{display:block;font-family:'Anton';font-size:62px;color:#fff;line-height:1}
 #c2 .ig span{display:block;margin-top:8px;font-size:26px;font-weight:700;color:var(--am)}
 #c2 .seg{position:absolute;left:0;right:0;top:1560px;text-align:center;font-family:'Anton';font-size:56px;color:#111;text-transform:uppercase}
+
+/* cena 3: 6 anos */
+#c3{background:radial-gradient(70% 50% at 50% 40%,#2b2810 0%,#0b0b0b 70%)}
+#c3 .faixa{top:-30px;transform:rotate(3deg)}
+#c3 .seis{position:absolute;left:0;right:0;top:120px;text-align:center;font-family:'Anton';font-size:620px;line-height:1;color:var(--am);text-shadow:0 20px 60px rgba(253,220,31,.25)}
+#c3 .anos{position:absolute;left:0;right:0;top:760px;text-align:center;font-family:'Anton';font-size:150px;line-height:1;color:#fff;letter-spacing:.06em}
+#c3 .sub{position:absolute;left:0;right:0;top:930px;text-align:center;font-family:'Anton';font-size:62px;color:#fff;text-transform:uppercase}
+#c3 .sub b{color:var(--am);font-weight:400}
+#c3 .foto{position:absolute;left:80px;right:80px;top:1070px;height:620px;border-radius:28px;overflow:hidden;border:6px solid var(--am);box-shadow:0 30px 70px rgba(0,0,0,.6)}
+#c3 .foto img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+#c3 .rod{position:absolute;left:0;right:0;bottom:120px;text-align:center;font-size:24px;font-weight:800;letter-spacing:.3em;color:#fff}
+#c3 .conf{position:absolute;inset:0;pointer-events:none}
+#c3 .conf i{position:absolute;display:block;width:18px;height:30px;border-radius:3px}
 </style></head><body>
 
 <section class="cena" id="c1">
@@ -70,10 +83,20 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family
  <div class="seg">Segue a gente!</div>
 </section>
 
+
+<section class="cena" id="c3">
+ <div class="faixa"></div>
+ <div class="conf" id="conf"></div>
+ <div class="seis" id="seis">6</div>
+ <div class="anos">ANOS</div>
+ <div class="sub">Construindo <b>junto com você</b></div>
+ <div class="foto"><img src="{{img:equipe-loja.jpg}}"></div>
+ <div class="rod">DA ROTA HOME CENTER · ESTRELA/RS</div>
+</section>
 <script>{{gsap}}</script>
 <script>
 gsap.defaults({lazy:false});
-var CENA=new URLSearchParams(location.search).get('c')||'c1', DUR=CENA==='c1'?5.0:4.5, tl=gsap.timeline({paused:true}), E='power3.out', B='back.out(1.7)';
+var CENA=new URLSearchParams(location.search).get('c')||'c1', DUR=CENA==='c1'?5.0:(CENA==='c3'?4.0:4.5), tl=gsap.timeline({paused:true}), E='power3.out', B='back.out(1.7)';
 gsap.set('.cena',{visibility:'hidden'}); gsap.set('#'+CENA,{visibility:'visible'});
 if(CENA==='c1'){
  tl.fromTo('#c1 .faixa',{xPercent:-30},{xPercent:0,duration:.5,ease:E},0)
@@ -87,6 +110,21 @@ if(CENA==='c1'){
    .fromTo('#c1 .f1 img,#c1 .f2 img',{scale:1.15},{scale:1,duration:4.5,ease:'none'},.45)
    .fromTo('#c1 .marcas p',{autoAlpha:0,y:20},{autoAlpha:1,y:0,duration:.3},2.35)
    .fromTo('#c1 .chips b',{autoAlpha:0,y:60,scale:.6},{autoAlpha:1,y:0,scale:1,duration:.35,stagger:.28,ease:B},2.55);
+}else if(CENA==='c3'){
+ var cores=['#FDDC1F','#ffffff','#FDDC1F','#ff5a3c','#ffffff'], conf=document.getElementById('conf');
+ function rnd(i,k){var x=Math.sin(i*12.9898+k*78.233)*43758.5453;return x-Math.floor(x)}
+ for(var i=0;i<70;i++){var c=document.createElement('i');c.style.background=cores[i%5];c.style.left=(rnd(i,1)*1080)+'px';c.style.top='-60px';conf.appendChild(c);
+   tl.fromTo(c,{y:-80,rotation:rnd(i,2)*360,x:0},{y:2050,rotation:rnd(i,3)*1080,x:(rnd(i,4)-.5)*300,duration:2.2+rnd(i,5)*1.6,ease:'power1.in'},.35+rnd(i,6)*.9)}
+ var o={v:1};
+ tl.fromTo('#c3 .faixa',{xPercent:-30},{xPercent:0,duration:.5,ease:E},0)
+   .fromTo('#seis',{autoAlpha:0,scale:.2,rotation:-15},{autoAlpha:1,scale:1,rotation:0,duration:.7,ease:'back.out(2.2)'},.05)
+   .fromTo(o,{v:1},{v:6,duration:.6,ease:'power2.out',onUpdate:function(){document.getElementById('seis').textContent=Math.round(o.v)}},.05)
+   .fromTo('#c3 .anos',{autoAlpha:0,y:60,letterSpacing:'.4em'},{autoAlpha:1,y:0,letterSpacing:'.06em',duration:.5,ease:E},.45)
+   .fromTo('#c3 .sub',{autoAlpha:0,y:40},{autoAlpha:1,y:0,duration:.45,ease:E},.75)
+   .fromTo('#c3 .foto',{autoAlpha:0,y:400,rotation:4},{autoAlpha:1,y:0,rotation:0,duration:.7,ease:B},1.0)
+   .fromTo('#c3 .foto img',{scale:1.15},{scale:1,duration:3,ease:'none'},1.0)
+   .fromTo('#c3 .rod',{autoAlpha:0},{autoAlpha:1,duration:.4},1.6)
+   .to('#seis',{scale:1.04,duration:.35,yoyo:true,repeat:5,ease:'sine.inOut'},.8);
 }else{
  tl.fromTo('#c2 .faixa',{xPercent:30},{xPercent:0,duration:.5,ease:E},0)
    .fromTo('#c2 .eyb',{autoAlpha:0,x:-40},{autoAlpha:1,x:0,duration:.35,ease:E},.05)
