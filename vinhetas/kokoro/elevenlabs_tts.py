@@ -29,7 +29,7 @@ elif sys.argv[1] == 'gerar':
     for i, txt in enumerate(falas):
         mp3 = req(f'/text-to-speech/{voz}?output_format=mp3_44100_128', {
             'text': txt, 'model_id': os.environ.get('EL_MODEL', 'eleven_multilingual_v2'), 'language_code': os.environ.get('EL_LANG', 'pt'),
-            'voice_settings': {'stability': 0.5, 'similarity_boost': 0.8, 'style': 0.15, 'use_speaker_boost': True, 'speed': 0.95}},
+            'voice_settings': {'stability': float(os.environ.get('EL_STAB', .5)), 'similarity_boost': 0.8, 'style': float(os.environ.get('EL_STYLE', .15)), 'use_speaker_boost': True, 'speed': float(os.environ.get('EL_SPEED', .95))}},
             accept='audio/mpeg')   # PCM exige plano Pro; MP3 vale no gratuito
         pcm = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', '-', '-ac', '1', '-ar', '44100', '-f', 's16le', '-'], input=mp3, capture_output=True, check=True).stdout
         with wave.open(f'{out}/{i}.wav', 'wb') as w:
