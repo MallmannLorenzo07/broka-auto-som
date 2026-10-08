@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+/* Cenas de venda para Meta Ads (9:16). Área útil: y 270–1250 (topo 14% e base 35% ficam sob a interface do Reels/Stories).
+   Faixa y 1080–1230 fica livre nas cenas que recebem legenda. */
+:root{--am:#FDDC1F;--pr:#0E0E0E;--wa:#25D366}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family:'Montserrat',sans-serif}
+.anton{font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.95}
+.cena{position:absolute;inset:0;overflow:hidden;visibility:hidden}
+.faixa{position:absolute;left:-80px;right:-80px;height:110px;background:repeating-linear-gradient(-45deg,var(--am) 0 46px,#111 46px 92px)}
+.eyb{font-size:28px;font-weight:800;letter-spacing:.3em;text-transform:uppercase}
+.c{position:absolute;left:0;right:0;text-align:center}
+
+/* hk: gancho "Obra parada?" */
+#hk{background:radial-gradient(70% 50% at 50% 35%,#2a2a14 0%,#070707 75%)}
+#hk .faixa.a{top:120px;transform:rotate(-6deg)} #hk .faixa.b{top:1330px;transform:rotate(5deg)}
+#hk .obra{top:300px;font-size:300px;color:#fff}
+#hk .parada{top:590px;font-size:300px;color:var(--am)}
+#hk .sub{top:920px;font-family:'Anton';font-size:84px;color:#fff;text-transform:uppercase}
+#hk .sub b{font-weight:400;color:#111;background:var(--am);padding:0 18px}
+
+/* wa: manda a lista no WhatsApp */
+#wa{background:radial-gradient(70% 45% at 50% 30%,#2a2a14 0%,#0a0a0a 72%)}
+#wa .faixa{top:-40px;transform:rotate(-3deg)}
+#wa .eyb{top:285px;color:var(--am)}
+#wa h1{top:335px;font-size:118px;color:#fff}
+#wa h1 span{color:var(--am)}
+#wa .fone{position:absolute;left:150px;right:150px;top:600px;height:1040px;border-radius:64px;background:#0b141a;border:12px solid #1c1c1c;box-shadow:0 40px 90px rgba(0,0,0,.7),0 0 0 3px #333;overflow:hidden}
+#wa .top{height:120px;background:#1f2c34;display:flex;align-items:center;gap:20px;padding:0 28px}
+#wa .av{width:76px;height:76px;border-radius:50%;background:var(--am);display:grid;place-items:center;font-family:'Anton';font-size:30px;color:#111;flex:none}
+#wa .top b{display:block;color:#fff;font-size:30px;font-weight:700}
+#wa .top span{display:block;color:#8696a0;font-size:22px;margin-top:2px}
+#wa .chat{position:absolute;left:0;right:0;top:120px;bottom:0;padding:24px 22px;display:flex;flex-direction:column;gap:14px}
+#wa .bal{max-width:84%;border-radius:22px;padding:16px 22px 12px;font-size:32px;line-height:1.38;color:#e9edef;position:relative}
+#wa .out{align-self:flex-end;background:#005c4b;border-top-right-radius:6px}
+#wa .in{align-self:flex-start;background:#202c33;border-top-left-radius:6px}
+#wa .hr{display:block;text-align:right;font-size:18px;color:#a6c9c1;margin-top:4px}
+#wa .it{display:block}
+#wa .dig{font-size:26px;color:#8696a0;font-style:italic}
+#wa .ok b{color:var(--wa)}
+#wa .doc{display:flex;align-items:center;gap:16px;background:#1a2329;border-radius:14px;padding:14px 18px;margin-bottom:8px}
+#wa .doc i{width:52px;height:64px;border-radius:6px;background:#e5534b;color:#fff;font-style:normal;font-size:16px;font-weight:800;display:grid;place-items:center;flex:none}
+
+/* of: preço bom + formas de pagamento */
+#of{background:var(--am)}
+#of .faixa{top:-40px;transform:rotate(3deg)}
+#of .preco{top:290px;font-size:250px;color:#111}
+#of .bom{top:575px;font-size:250px;color:#fff;-webkit-text-stroke:10px #111;paint-order:stroke fill}
+#of .ics{position:absolute;left:0;right:0;top:860px;display:flex;justify-content:center;gap:34px}
+#of .ics div{width:150px;height:150px;border-radius:34px;background:#111;display:grid;place-items:center}
+#of .ics svg{width:86px;height:86px}
+#of .formas{top:1030px;font-family:'Anton';font-size:62px;color:#111;text-transform:uppercase}
+#of .selo{position:absolute;left:770px;top:610px;width:270px;height:270px;border-radius:50%;background:#111;color:var(--am);display:grid;place-items:center;text-align:center;font-family:'Anton';font-size:52px;line-height:1;text-transform:uppercase;border:8px dashed var(--am);outline:8px solid #111}
+
+/* cta: chama no WhatsApp */
+#cta{background:var(--am)}
+#cta .faixa{top:-40px;transform:rotate(-3deg)}
+#cta .logo{position:absolute;left:250px;right:250px;top:270px;background:#111;border-radius:26px;padding:22px 0 18px;text-align:center}
+#cta .logo b{font-family:'Anton';font-size:96px;line-height:1;color:#fff}#cta .logo b i{font-style:normal;color:var(--am)}
+#cta .logo span{display:block;font-size:22px;font-weight:700;letter-spacing:.4em;color:#fff;margin-top:4px}
+#cta h1{top:500px;font-size:150px;color:#111}
+#cta .bt{position:absolute;left:90px;right:90px;top:840px;height:170px;border-radius:99px;background:var(--wa);display:flex;align-items:center;justify-content:center;gap:28px;box-shadow:0 18px 0 #128C7E,0 30px 60px rgba(0,0,0,.25)}
+#cta .bt svg{width:100px;height:100px}
+#cta .bt b{font-family:'Anton';font-size:96px;color:#fff;letter-spacing:.01em}
+#cta .orc{top:1060px;font-family:'Anton';font-size:58px;color:#111;text-transform:uppercase}
+#cta .seta{position:absolute;left:0;right:0;top:1150px;display:flex;flex-direction:column;align-items:center}
+#cta .seta span{font-size:30px;font-weight:800;color:#111;letter-spacing:.06em;text-transform:uppercase;background:#fff;border-radius:99px;padding:10px 30px}
+#cta .seta svg{width:110px;height:110px;margin-top:6px}
+#cta .end{top:1390px;font-size:28px;font-weight:700;color:#111;letter-spacing:.04em}
+</style></head><body>
+
+<section class="cena" id="hk">
+ <div class="faixa a"></div><div class="faixa b"></div>
+ <div class="c anton obra">Obra</div>
+ <div class="c anton parada" id="parada">parada?</div>
+ <div class="c sub">por falta de <b>material?</b></div>
+</section>
+
+<section class="cena" id="wa">
+ <div class="faixa"></div>
+ <div class="c eyb">Orçamento sem complicação</div>
+ <h1 class="c anton">Manda a lista<br><span>no WhatsApp</span></h1>
+ <div class="fone">
+  <div class="top"><div class="av">DR</div><div><b>Da Rota Home Center</b><span id="st">online</span></div></div>
+  <div class="chat">
+   <div class="bal out" id="lista"><span class="it">Oi! Orçamento pra minha obra:</span><span class="it">• 20 sacos de cimento</span><span class="it">• 2 m³ de areia</span><span class="it">• 500 tijolos</span><span class="it">• 10 barras de ferro 3/8</span><span class="hr">09:41 ✓✓</span></div>
+   <div class="bal in" id="dig"><span class="dig">digitando...</span></div>
+   <div class="bal in ok" id="resp"><div class="doc"><i>PDF</i><div>Orcamento-obra.pdf</div></div>Prontinho! <b>Orçamento enviado</b> ✅<span class="hr" style="color:#8696a0">09:44</span></div>
+  </div>
+ </div>
+</section>
+
+<section class="cena" id="of">
+ <div class="faixa"></div>
+ <div class="c anton preco">Preço</div>
+ <div class="c anton bom">bom</div>
+ <div class="selo" id="selo">Promo-<br>ções<br>do mês</div>
+ <div class="ics">
+  <div><svg viewBox="0 0 24 24" fill="none" stroke="#FDDC1F" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/></svg></div>
+  <div><svg viewBox="0 0 24 24" fill="none" stroke="#FDDC1F" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.8"/><path d="M5.5 9.5v5M18.5 9.5v5"/></svg></div>
+  <div><svg viewBox="0 0 24 24" fill="none" stroke="#FDDC1F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10 18h4M9.5 9.5l2 2 3.5-3.5"/></svg></div>
+ </div>
+ <div class="c formas">Várias formas de pagamento</div>
+</section>
+
+<section class="cena" id="cta">
+ <div class="faixa"></div>
+ <div class="logo"><b>DA <i>ROTA</i></b><span>HOME CENTER</span></div>
+ <h1 class="c anton">Chama no<br>WhatsApp</h1>
+ <div class="bt" id="bt"><svg viewBox="0 0 32 32" fill="#fff"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.1c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-2 0-3.9-.6-5.6-1.6l-.4-.2-4.1 1.2 1.3-4-.3-.4c-1.1-1.7-1.7-3.7-1.7-5.7C5.2 9.7 10 5 16 5s10.8 4.8 10.8 10.6S22 26.2 16 26.2zm5.9-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg><b>(51) 99788-7758</b></div>
+ <div class="c orc">Peça seu orçamento agora</div>
+ <div class="seta" id="seta"><span>Toque em enviar mensagem</span><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></div>
+ <div class="c end">RSC 453, km 40 · Estrela/RS · @darotahomecenter</div>
+</section>
+
+<script>{{gsap}}</script>
+<script>
+gsap.defaults({lazy:false});
+var CENA=new URLSearchParams(location.search).get('c')||'wa', DUR={hk:2.6,wa:4.8,of:3.6,cta:4.6}[CENA], tl=gsap.timeline({paused:true}), E='power3.out', B='back.out(1.7)';
+gsap.set('.cena',{visibility:'hidden'}); gsap.set('#'+CENA,{visibility:'visible'});
+var hooks=[];
+if(CENA==='hk'){
+ tl.fromTo('#hk .faixa.a',{xPercent:-40},{xPercent:0,duration:.4,ease:E},0)
+   .fromTo('#hk .faixa.b',{xPercent:40},{xPercent:0,duration:.4,ease:E},0)
+   .fromTo('#hk .obra',{autoAlpha:0,scale:2.2},{autoAlpha:1,scale:1,duration:.3,ease:'power4.out'},0)
+   .fromTo('#parada',{autoAlpha:0,scale:2.2},{autoAlpha:1,scale:1,duration:.3,ease:'power4.out'},.3)
+   .fromTo('#parada',{x:0},{x:18,duration:.05,yoyo:true,repeat:7,ease:'none'},.62)
+   .fromTo('#hk .sub',{autoAlpha:0,y:50},{autoAlpha:1,y:0,duration:.35,ease:E},1.05)
+   .fromTo('#hk .obra,#parada',{y:0},{y:-12,duration:1.2,ease:'none'},1.2);
+}else if(CENA==='wa'){
+ tl.fromTo('#wa .faixa',{xPercent:-30},{xPercent:0,duration:.5,ease:E},0)
+   .fromTo('#wa .eyb',{autoAlpha:0,y:-20},{autoAlpha:1,y:0,duration:.3},.05)
+   .fromTo('#wa h1',{autoAlpha:0,y:70},{autoAlpha:1,y:0,duration:.45,ease:E},.08)
+   .fromTo('#wa .fone',{autoAlpha:0,y:700,rotation:6},{autoAlpha:1,y:0,rotation:0,duration:.7,ease:'back.out(1.2)'},.25)
+   .fromTo('#lista',{autoAlpha:0,scale:.6,transformOrigin:'100% 0'},{autoAlpha:1,scale:1,duration:.3,ease:B},.85)
+   .fromTo('#lista .it',{autoAlpha:0,x:30},{autoAlpha:1,x:0,duration:.18,stagger:.22},.9)
+   .fromTo('#lista .hr',{autoAlpha:0},{autoAlpha:1,duration:.15},2.05)
+   .fromTo('#dig',{autoAlpha:0,scale:.6,transformOrigin:'0 0'},{autoAlpha:1,scale:1,duration:.25,ease:B},2.3)
+   .to('#dig',{autoAlpha:0,height:0,padding:0,marginTop:-14,duration:.15},3.15)
+   .fromTo('#resp',{autoAlpha:0,scale:.6,transformOrigin:'0 0'},{autoAlpha:1,scale:1,duration:.35,ease:B},3.2)
+   .to('#wa .fone',{scale:1.03,duration:1.4,ease:'none'},3.3);
+ hooks.push(function(t){document.getElementById('st').textContent=(t>2.3&&t<3.2)?'digitando...':'online'});
+}else if(CENA==='of'){
+ tl.fromTo('#of .faixa',{xPercent:30},{xPercent:0,duration:.5,ease:E},0)
+   .fromTo('#of .preco',{autoAlpha:0,y:-120},{autoAlpha:1,y:0,duration:.35,ease:E},.05)
+   .fromTo('#of .bom',{autoAlpha:0,scale:2.4,rotation:-8},{autoAlpha:1,scale:1,rotation:0,duration:.35,ease:'power4.out'},.35)
+   .fromTo('#selo',{autoAlpha:0,scale:0,rotation:-200},{autoAlpha:1,scale:1,rotation:-12,duration:.55,ease:B},.7)
+   .fromTo('#of .ics div',{autoAlpha:0,y:80,scale:.5},{autoAlpha:1,y:0,scale:1,duration:.35,stagger:.14,ease:B},1.0)
+   .fromTo('#of .formas',{autoAlpha:0,y:40},{autoAlpha:1,y:0,duration:.35,ease:E},1.25)
+   .to('#selo',{scale:1.07,duration:.3,yoyo:true,repeat:5,ease:'sine.inOut'},1.4);
+}else{
+ tl.fromTo('#cta .faixa',{xPercent:-30},{xPercent:0,duration:.5,ease:E},0)
+   .fromTo('#cta .logo',{autoAlpha:0,y:-60},{autoAlpha:1,y:0,duration:.4,ease:E},.05)
+   .fromTo('#cta h1',{autoAlpha:0,scale:1.8},{autoAlpha:1,scale:1,duration:.4,ease:'power4.out'},.2)
+   .fromTo('#bt',{autoAlpha:0,y:200,scale:.6},{autoAlpha:1,y:0,scale:1,duration:.5,ease:B},.55)
+   .fromTo('#cta .orc',{autoAlpha:0,y:30},{autoAlpha:1,y:0,duration:.35},.95)
+   .fromTo('#seta',{autoAlpha:0},{autoAlpha:1,duration:.3},1.3)
+   .fromTo('#seta svg',{y:-14},{y:22,duration:.35,yoyo:true,repeat:9,ease:'sine.inOut'},1.3)
+   .to('#bt',{scale:1.05,duration:.32,yoyo:true,repeat:9,ease:'sine.inOut'},1.1)
+   .fromTo('#cta .end',{autoAlpha:0},{autoAlpha:1,duration:.4},1.6);
+}
+tl.to({},{duration:.01},DUR);
+window.__dur=DUR; window.__seek=function(t){tl.seek(t,false);hooks.forEach(function(h){h(t)})}; window.__seek(0); window.__ready=true;
+</script></body></html>

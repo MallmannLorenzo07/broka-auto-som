@@ -1,0 +1,30 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: L,Anton,92,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,1,0,1,7,4,2,60,60,700,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:02.80,0:00:02.88,L,,0,0,0,,{\fad(60,0)}{\c&H1FDCFD&}A {\c&HFFFFFF&}DA {\c&HFFFFFF&}ROTA
+Dialogue: 0,0:00:02.88,0:00:02.94,L,,0,0,0,,{\c&HFFFFFF&}A {\c&H1FDCFD&}DA {\c&HFFFFFF&}ROTA
+Dialogue: 0,0:00:02.94,0:00:03.16,L,,0,0,0,,{\c&HFFFFFF&}A {\c&HFFFFFF&}DA {\c&H1FDCFD&}ROTA
+Dialogue: 0,0:00:03.16,0:00:03.52,L,,0,0,0,,{\fad(60,0)}{\c&H1FDCFD&}ENTREGA {\c&HFFFFFF&}DIRETO
+Dialogue: 0,0:00:03.52,0:00:03.84,L,,0,0,0,,{\c&HFFFFFF&}ENTREGA {\c&H1FDCFD&}DIRETO
+Dialogue: 0,0:00:03.84,0:00:03.96,L,,0,0,0,,{\fad(60,0)}{\c&H1FDCFD&}NA {\c&HFFFFFF&}SUA {\c&HFFFFFF&}OBRA
+Dialogue: 0,0:00:03.96,0:00:04.12,L,,0,0,0,,{\c&HFFFFFF&}NA {\c&H1FDCFD&}SUA {\c&HFFFFFF&}OBRA
+Dialogue: 0,0:00:04.12,0:00:04.58,L,,0,0,0,,{\c&HFFFFFF&}NA {\c&HFFFFFF&}SUA {\c&H1FDCFD&}OBRA
+Dialogue: 0,0:00:04.58,0:00:04.62,L,,0,0,0,,{\fad(60,0)}{\c&H1FDCFD&}NO {\c&HFFFFFF&}PRAZO
+Dialogue: 0,0:00:04.62,0:00:05.63,L,,0,0,0,,{\c&HFFFFFF&}NO {\c&H1FDCFD&}PRAZO
+Dialogue: 0,0:00:06.76,0:00:07.64,L,,0,0,0,,{\fad(60,0)}{\c&H1FDCFD&}QUALIDADE
+Dialogue: 0,0:00:07.64,0:00:07.74,L,,0,0,0,,{\fad(60,0)}{\c&H1FDCFD&}PREÇO {\c&HFFFFFF&}BOM
+Dialogue: 0,0:00:07.74,0:00:08.08,L,,0,0,0,,{\c&HFFFFFF&}PREÇO {\c&H1FDCFD&}BOM
+Dialogue: 0,0:00:08.08,0:00:08.38,L,,0,0,0,,{\fad(60,0)}{\c&H1FDCFD&}E {\c&HFFFFFF&}VÁRIAS {\c&HFFFFFF&}FORMAS
+Dialogue: 0,0:00:08.38,0:00:08.60,L,,0,0,0,,{\c&HFFFFFF&}E {\c&H1FDCFD&}VÁRIAS {\c&HFFFFFF&}FORMAS
+Dialogue: 0,0:00:08.60,0:00:08.86,L,,0,0,0,,{\c&HFFFFFF&}E {\c&HFFFFFF&}VÁRIAS {\c&H1FDCFD&}FORMAS
+Dialogue: 0,0:00:08.86,0:00:09.02,L,,0,0,0,,{\fad(60,0)}{\c&H1FDCFD&}DE {\c&HFFFFFF&}PAGAMENTO
+Dialogue: 0,0:00:09.02,0:00:09.75,L,,0,0,0,,{\c&HFFFFFF&}DE {\c&H1FDCFD&}PAGAMENTO
