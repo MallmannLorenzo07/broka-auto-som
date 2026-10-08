@@ -349,7 +349,7 @@ body.render #play{display:none}
 </div></div>
 
 <button id="play" aria-label="Reproduzir"><span><i></i>PLAY • 30s COM SOM</span></button>
-<audio id="music" src="assets/trilha.mp3" preload="auto"></audio>
+<audio id="music" src="assets/mix.mp3" preload="auto" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='assets/trilha.mp3'}"></audio>
 
 <script src="assets/vendor/gsap.min.js"></script>
 <script>

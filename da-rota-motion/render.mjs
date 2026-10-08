@@ -32,7 +32,7 @@ if (args[0] === '--stills') {
   }
 } else {
   const outFile = path.join(dir, 'da-rota-motion.mp4');
-  const audio = ['trilha.wav', 'trilha.mp3'].map(f => path.join(dir, 'assets', f)).find(f => fs.existsSync(f)) || '';
+  const audio = ['mix.wav', 'trilha.wav', 'mix.mp3', 'trilha.mp3'].map(f => path.join(dir, 'assets', f)).find(f => fs.existsSync(f)) || '';
   const ff = spawn('ffmpeg', [
     '-y', '-loglevel', 'error',
     '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-',

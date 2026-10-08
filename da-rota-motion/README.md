@@ -23,12 +23,21 @@ Textos, fotos e depoimentos foram tirados do site darotahomecenter.com.br.
 
 - `index.html`: a animação (GSAP). Abra no navegador e clique em play para ver a prévia com som.
 - `trilha.py`: gera a trilha original (`assets/trilha.wav` / `.mp3`) com numpy, sincronizada com os cortes.
+- `locucao.py`: gera a locução na ElevenLabs (uma fala por cena), abaixa a música sob a voz e grava `assets/mix.wav`.
 - `render.mjs`: renderiza quadro a quadro com Playwright/Chromium e monta o MP4 com ffmpeg.
 
 ## Como renderizar de novo
 
 ```bash
 python3 trilha.py         # gera a trilha
-node render.mjs           # gera da-rota-motion.mp4
+python3 locucao.py        # (opcional) locução ElevenLabs; precisa de ELEVENLABS_API_KEY no ambiente
+node render.mjs           # gera da-rota-motion.mp4 (usa assets/mix.wav se existir)
 node render.mjs --stills 3,10.5,27 stills/   # (opcional) quadros para conferência
 ```
+
+## Locução (ElevenLabs)
+
+O roteiro e os tempos de cada fala estão no topo de `locucao.py` (lista `FALAS`). Defina
+`ELEVENLABS_VOICE_ID` para escolher a voz. Sem ela, o script procura uma voz em português
+na conta e, se não encontrar, usa a voz multilíngue "Brian". Para testar a mixagem sem gastar
+créditos, use `python3 locucao.py --simular`.
