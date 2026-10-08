@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--am:#FDDC1F;--pr:#0E0E0E;--pr2:#1a1a1a}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family:'Montserrat',sans-serif}
+.anton{font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.95;letter-spacing:.005em}
+.cena{position:absolute;inset:0;overflow:hidden;visibility:hidden}
+.faixa{position:absolute;left:-60px;right:-60px;height:110px;background:repeating-linear-gradient(-45deg,var(--am) 0 46px,#111 46px 92px)}
+.selo{position:absolute;right:60px;top:64px;text-align:right}
+.selo b{font-family:'Anton';font-size:58px;line-height:1;color:#fff}.selo b i{font-style:normal;color:var(--am)}
+.selo span{display:block;font-size:13px;font-weight:700;letter-spacing:.32em;color:#fff;margin-top:2px}
+.eyb{font-size:26px;font-weight:800;letter-spacing:.3em;text-transform:uppercase}
+
+/* cena 1: tintas, ferramentas e marcas */
+#c1{background:radial-gradient(60% 45% at 50% 45%,#2a2a14 0%,#0b0b0b 70%)}
+#c1 .faixa{top:-30px;transform:rotate(-3deg)}
+#c1 .eyb{position:absolute;left:70px;top:250px;color:var(--am)}
+#c1 h1{position:absolute;left:66px;top:300px;font-size:150px;color:#fff}
+#c1 h1 span{color:var(--am);display:block}
+#c1 .foto{position:absolute;width:520px;height:600px;border-radius:26px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.6);border:6px solid var(--am)}
+#c1 .foto img{width:100%;height:100%;object-fit:cover}
+#c1 .f1{left:70px;top:720px;transform:rotate(-5deg)}
+#c1 .f2{right:70px;top:820px;transform:rotate(5deg)}
+#c1 .tag{position:absolute;background:var(--am);color:#111;font-family:'Anton';font-size:52px;padding:10px 26px;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#c1 .t1{left:100px;top:1250px;transform:rotate(-5deg)} #c1 .t2{right:100px;top:1360px;transform:rotate(5deg)}
+#c1 .marcas{position:absolute;left:0;right:0;bottom:150px;text-align:center}
+#c1 .marcas p{font-size:24px;font-weight:800;letter-spacing:.3em;color:#fff;text-transform:uppercase}
+#c1 .chips{margin-top:22px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:0 40px}
+#c1 .chips b{font-family:'Anton';font-size:54px;color:#111;background:#fff;border-radius:99px;padding:8px 34px;text-transform:uppercase}
+#c1 .chips b:nth-child(odd){background:var(--am)}
+
+/* cena 2: dicas no Instagram */
+#c2{background:var(--am)}
+#c2 .faixa{bottom:-30px;transform:rotate(-3deg)}
+#c2 .eyb{position:absolute;left:70px;top:150px;color:#111}
+#c2 h1{position:absolute;left:66px;top:200px;font-size:132px;color:#111}
+#c2 .post{position:absolute;width:470px;height:476px;border-radius:24px;overflow:hidden;box-shadow:0 26px 60px rgba(0,0,0,.35);border:5px solid #111;background:#111}
+#c2 .post img{width:100%;height:100%;object-fit:cover}
+#c2 .p1{left:60px;top:640px;transform:rotate(-6deg)} #c2 .p2{left:305px;top:760px;transform:rotate(2deg);z-index:2} #c2 .p3{right:55px;top:670px;transform:rotate(7deg)}
+#c2 .ig{position:absolute;left:70px;right:70px;top:1350px;background:#111;border-radius:30px;padding:30px 36px;display:flex;align-items:center;gap:26px}
+#c2 .ig .lg{width:96px;height:96px;border-radius:26px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);display:grid;place-items:center;flex:none}
+#c2 .ig .lg svg{width:58px;height:58px}
+#c2 .ig b{display:block;font-family:'Anton';font-size:62px;color:#fff;line-height:1}
+#c2 .ig span{display:block;margin-top:8px;font-size:26px;font-weight:700;color:var(--am)}
+#c2 .seg{position:absolute;left:0;right:0;top:1560px;text-align:center;font-family:'Anton';font-size:56px;color:#111;text-transform:uppercase}
+</style></head><body>
+
+<section class="cena" id="c1">
+ <div class="faixa"></div>
+ <div class="selo"><b>DA <i>ROTA</i></b><span>HOME CENTER</span></div>
+ <div class="eyb">E tem mais</div>
+ <h1 class="anton"><span class="l">Tintas e</span><span class="l">ferramentas</span></h1>
+ <div class="foto f1"><img src="{{img:tintas.jpg}}"></div>
+ <div class="foto f2"><img src="{{img:kit-vonder.jpg}}"></div>
+ <div class="tag t1">A vida pede cor</div>
+ <div class="tag t2">Kits completos</div>
+ <div class="marcas"><p>Marcas que você confia</p><div class="chips"><b>Vonder</b><b>Atlas</b><b>WD-40</b><b>DTools</b></div></div>
+</section>
+
+<section class="cena" id="c2">
+ <div class="faixa"></div>
+ <div class="eyb">No nosso Instagram</div>
+ <h1 class="anton">Dicas de quem<br>entende de obra</h1>
+ <div class="post p1"><img src="{{img:trena.jpg}}"></div>
+ <div class="post p3"><img src="{{img:wd40.jpg}}"></div>
+ <div class="post p2"><img src="{{img:rolos.jpg}}"></div>
+ <div class="ig"><div class="lg"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></div>
+  <div><b>@darotahomecenter</b><span>+2.800 seguidores · +500 publicações</span></div></div>
+ <div class="seg">Segue a gente!</div>
+</section>
+
+<script>{{gsap}}</script>
+<script>
+gsap.defaults({lazy:false});
+var CENA=new URLSearchParams(location.search).get('c')||'c1', DUR=CENA==='c1'?5.0:4.5, tl=gsap.timeline({paused:true}), E='power3.out', B='back.out(1.7)';
+gsap.set('.cena',{visibility:'hidden'}); gsap.set('#'+CENA,{visibility:'visible'});
+if(CENA==='c1'){
+ tl.fromTo('#c1 .faixa',{xPercent:-30},{xPercent:0,duration:.5,ease:E},0)
+   .fromTo('#c1 .selo',{autoAlpha:0},{autoAlpha:1,duration:.3},.05)
+   .fromTo('#c1 .eyb',{autoAlpha:0,x:-40},{autoAlpha:1,x:0,duration:.35,ease:E},.05)
+   .fromTo('#c1 h1 .l',{autoAlpha:0,y:80,skewY:6},{autoAlpha:1,y:0,skewY:0,duration:.45,stagger:.12,ease:E},.1)
+   .fromTo('#c1 .f1',{autoAlpha:0,x:-500,rotation:-20},{autoAlpha:1,x:0,rotation:-5,duration:.6,ease:B},.45)
+   .fromTo('#c1 .f2',{autoAlpha:0,x:500,rotation:20},{autoAlpha:1,x:0,rotation:5,duration:.6,ease:B},.75)
+   .fromTo('#c1 .t1',{autoAlpha:0,scale:2},{autoAlpha:1,scale:1,duration:.35,ease:B},1.05)
+   .fromTo('#c1 .t2',{autoAlpha:0,scale:2},{autoAlpha:1,scale:1,duration:.35,ease:B},1.4)
+   .fromTo('#c1 .f1 img,#c1 .f2 img',{scale:1.15},{scale:1,duration:4.5,ease:'none'},.45)
+   .fromTo('#c1 .marcas p',{autoAlpha:0,y:20},{autoAlpha:1,y:0,duration:.3},2.35)
+   .fromTo('#c1 .chips b',{autoAlpha:0,y:60,scale:.6},{autoAlpha:1,y:0,scale:1,duration:.35,stagger:.28,ease:B},2.55);
+}else{
+ tl.fromTo('#c2 .faixa',{xPercent:30},{xPercent:0,duration:.5,ease:E},0)
+   .fromTo('#c2 .eyb',{autoAlpha:0,x:-40},{autoAlpha:1,x:0,duration:.35,ease:E},.05)
+   .fromTo('#c2 h1',{autoAlpha:0,y:80},{autoAlpha:1,y:0,duration:.45,ease:E},.12)
+   .fromTo('#c2 .p1',{autoAlpha:0,y:600,rotation:-25},{autoAlpha:1,y:0,rotation:-6,duration:.6,ease:B},.5)
+   .fromTo('#c2 .p2',{autoAlpha:0,y:600,rotation:15},{autoAlpha:1,y:0,rotation:2,duration:.6,ease:B},.75)
+   .fromTo('#c2 .p3',{autoAlpha:0,y:600,rotation:25},{autoAlpha:1,y:0,rotation:7,duration:.6,ease:B},1.0)
+   .fromTo('#c2 .ig',{autoAlpha:0,y:80},{autoAlpha:1,y:0,duration:.45,ease:E},2.0)
+   .fromTo('#c2 .seg',{autoAlpha:0,scale:1.6},{autoAlpha:1,scale:1,duration:.4,ease:B},2.9)
+   .to('#c2 .seg',{scale:1.06,duration:.3,yoyo:true,repeat:3,ease:'sine.inOut'},3.3);
+}
+tl.to({},{duration:.01},DUR);
+window.__dur=DUR; window.__seek=function(t){tl.seek(t,false)}; window.__seek(0); window.__ready=true;
+</script></body></html>
