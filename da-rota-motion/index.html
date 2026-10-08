@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Da Rota Motion</title>
+<meta name="description" content="Motion de 30 segundos da Da Rota Home Center: departamentos, produtos, entrega e contato.">
+<style>
+@font-face{font-family:"Anton";src:url(assets/fonts/anton.woff2) format("woff2");font-display:block}
+@font-face{font-family:"Montserrat";src:url(assets/fonts/montserrat.woff2) format("woff2");font-weight:100 900;font-display:block}
+:root{
+  --y:#FFDD21;--y2:#F2C500;--k:#0A0A0A;--k2:#161616;--w:#FFFFFF;--wa:#25D366;
+  --head:"Anton",Impact,"Arial Narrow",sans-serif;--body:"Montserrat","Segoe UI",system-ui,sans-serif;
+  --emoji:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#050505;overflow:hidden}
+body{display:grid;place-items:center;font-family:var(--body);color:var(--w);-webkit-font-smoothing:antialiased}
+
+/* palco 1080x1920 (9:16) */
+#viewport{position:relative;width:1080px;height:1920px;transform-origin:50% 50%;flex:none}
+#stage{position:absolute;inset:0;overflow:hidden;background:var(--k)}
+#cam{position:absolute;inset:0}
+.scene{position:absolute;inset:0;overflow:hidden;visibility:hidden}
+.bg{position:absolute;inset:-2px;background-size:cover;background-position:center;will-change:transform}
+.shade{position:absolute;inset:0}
+.h{font-family:var(--head);font-weight:400;text-transform:uppercase;line-height:.92;letter-spacing:.005em}
+.mask{display:block;overflow:hidden;padding:0 .06em}
+.mask>span{display:block}
+.bug{position:absolute;top:70px;right:64px;width:250px}
+
+/* 1 gancho */
+#s-hook{background:var(--y)}
+#s-hook .bg{top:auto;bottom:-40px;left:-560px;right:auto;width:2200px;height:1384px;background-image:url(assets/img/obra-silhueta.jpg);filter:grayscale(1) contrast(1.9) brightness(1.4);mix-blend-mode:multiply}
+#s-hook .t{position:absolute;left:80px;top:250px;color:var(--k)}
+#s-hook .t small{display:block;font:800 52px var(--body);letter-spacing:.32em;margin-bottom:22px}
+#s-hook .big{font-size:205px}
+#s-hook .q2{position:absolute;left:80px;top:250px;color:var(--k)}
+#s-hook .q2 small{display:block;font:800 52px var(--body);letter-spacing:.32em;margin-bottom:22px;color:var(--k)}
+
+/* 2 logo */
+#s-logo{background:var(--k)}
+#s-logo .glow{position:absolute;left:50%;top:44%;width:1500px;height:1500px;margin:-750px 0 0 -750px;background:radial-gradient(circle,rgba(255,221,33,.38),rgba(255,221,33,0) 60%)}
+.stripes{position:absolute;background:repeating-linear-gradient(-45deg,var(--y) 0 46px,var(--k) 46px 92px)}
+#s-logo .st1{left:-200px;top:-100px;width:1500px;height:150px;transform:rotate(-8deg)}
+#s-logo .st2{left:-200px;bottom:-60px;width:1500px;height:150px;transform:rotate(-8deg)}
+#s-logo .logo{position:absolute;left:90px;top:600px;width:900px}
+#s-logo .tag{position:absolute;left:0;right:0;top:1060px;text-align:center}
+#s-logo .tag .h{font-size:104px}
+#s-logo .tag .l2{color:var(--y)}
+
+/* 3 departamentos */
+.dep .shade{background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 26%,rgba(0,0,0,0) 46%,rgba(0,0,0,.88) 100%)}
+.dep .num{position:absolute;left:70px;top:84px;font:800 36px var(--body);letter-spacing:.2em;color:var(--y)}
+.dep .num b{color:#fff}
+.dep .label{position:absolute;left:0;bottom:330px;padding:26px 70px 18px 70px;background:var(--y);color:var(--k);transform-origin:0 50%}
+.dep .label .h{font-size:132px;display:block}
+.dep .sub{position:absolute;left:70px;bottom:230px;font:700 46px var(--body);color:#fff}
+#s-d1 .bg{background-image:url(assets/img/fachada.jpg);background-position:22% center}
+#s-d2 .bg{background-image:url(assets/img/conexoes.jpg)}
+#s-d3 .bg{background-image:url(assets/img/fios.jpg);background-position:30% center}
+#s-d4 .bg{background-image:url(assets/img/obra-ferragem.jpg);background-position:42% center}
+#s-d5 .bg{background-image:url(assets/img/loja-pisos.jpg);background-position:42% center}
+
+/* 4 produtos */
+#s-prod{background:var(--y)}
+#s-prod .band{position:absolute;left:-200px;top:1300px;width:1500px;height:460px;background:var(--k);transform:rotate(-8deg)}
+#s-prod .title{position:absolute;left:70px;top:110px;color:var(--k)}
+#s-prod .title small{display:block;font:800 40px var(--body);letter-spacing:.28em;margin-bottom:14px}
+#s-prod .title .h{font-size:150px}
+.cards{position:absolute;left:70px;top:520px;width:940px;display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.card{background:#fff;border-radius:28px;height:440px;box-shadow:0 30px 60px rgba(0,0,0,.28);position:relative;overflow:hidden}
+.card img{position:absolute;left:50%;top:30px;height:275px;transform:translateX(-50%);object-fit:contain;max-width:400px}
+.card p{position:absolute;left:28px;right:28px;bottom:26px;font:800 31px/1.15 var(--body);color:var(--k)}
+.card p span{display:block;font-weight:600;font-size:24px;color:#555;margin-top:6px}
+.sticker{position:absolute;right:34px;top:420px;width:250px;height:250px;border-radius:50%;background:var(--k);color:var(--y);display:grid;place-items:center;text-align:center;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.sticker .h{font-size:64px;line-height:.95}
+.sticker .h small{display:block;font:800 22px var(--body);letter-spacing:.2em;color:#fff;margin-bottom:6px}
+.marquee{position:absolute;left:0;bottom:262px;white-space:nowrap;font-family:var(--head);font-size:84px;color:var(--y);text-transform:uppercase}
+.marquee i{font-style:normal;color:#fff;margin:0 26px}
+
+/* 5 estoque */
+#s-fork .bg{background-image:url(assets/img/empilhadeira.jpg);background-position:50% 40%}
+#s-fork .shade{background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.9) 100%)}
+#s-fork .txt{position:absolute;left:70px;bottom:230px}
+#s-fork .h{font-size:160px}
+#s-fork .h .y{color:var(--y)}
+#s-fork p{font:700 46px var(--body);margin-top:24px}
+
+/* 6 entrega */
+#s-truck{background:linear-gradient(180deg,var(--y) 0%,#FFE766 100%)}
+#s-truck .sun{position:absolute;left:640px;top:820px;width:300px;height:300px;border-radius:50%;background:#fff3a6}
+#s-truck .city{position:absolute;left:0;bottom:690px;height:420px;width:4000px}
+#s-truck .ground{position:absolute;left:0;right:0;bottom:0;height:700px;background:#1d1d1f}
+#s-truck .curb{position:absolute;left:0;right:0;bottom:690px;height:22px;background:#3a3a3e}
+#s-truck .dashes{position:absolute;left:0;bottom:330px;height:24px;width:4000px;background:repeating-linear-gradient(90deg,var(--y) 0 150px,transparent 150px 260px)}
+#s-truck .head{position:absolute;left:70px;top:120px;color:var(--k)}
+#s-truck .head .h{font-size:250px}
+.pill{display:inline-block;background:var(--k);color:var(--y);padding:18px 30px 14px;font-family:var(--head);font-size:76px;text-transform:uppercase;line-height:1}
+#s-truck .pills{position:absolute;left:70px;top:395px;height:110px;width:950px}
+#s-truck .pills .pill{position:absolute;left:0;top:0}
+#truck{position:absolute;left:220px;bottom:390px;width:640px}
+#site{position:absolute;right:-40px;bottom:690px;width:470px}
+.stamp{position:absolute;left:150px;top:640px;border:12px solid #18A54A;color:#18A54A;background:rgba(255,255,255,.92);padding:24px 44px 14px;border-radius:24px;font-family:var(--head);font-size:120px;text-transform:uppercase;line-height:1;transform:rotate(-9deg)}
+
+/* 7 depoimentos */
+#s-chat .bg{background-image:url(assets/img/fachada.jpg);filter:blur(14px) brightness(.45);transform:scale(1.1)}
+#s-chat .title{position:absolute;left:70px;top:150px}
+#s-chat .title .h{font-size:150px}
+#s-chat .title .y{color:var(--y)}
+.phone{position:absolute;left:90px;top:600px;width:900px;height:900px;border-radius:60px;background:#0B141A;border:14px solid #1d1d1f;box-shadow:0 40px 90px rgba(0,0,0,.6);overflow:hidden}
+.phone .bar{height:150px;background:#1F2C34;display:flex;align-items:center;gap:26px;padding:0 36px}
+.phone .av{width:92px;height:92px;border-radius:50%;background:var(--k);display:grid;place-items:center;overflow:hidden;border:3px solid var(--y)}
+.phone .av img{width:80px}
+.phone .nm{font:700 40px var(--body)}
+.phone .nm small{display:block;font:500 28px var(--body);color:#8fa3ad;margin-top:4px}
+.msgs{padding:46px 36px;display:flex;flex-direction:column;gap:30px}
+.msg{max-width:720px;padding:26px 32px 20px;border-radius:30px;font:600 42px/1.25 var(--body);position:relative}
+.msg .e{font-family:var(--emoji)}
+.msg time{display:block;text-align:right;font:500 24px var(--body);opacity:.65;margin-top:8px}
+.msg.out{align-self:flex-end;background:#005C4B;border-top-right-radius:6px}
+.msg.in{align-self:flex-start;background:#202C33;border-top-left-radius:6px}
+.msg .who{display:block;font:700 26px var(--body);color:var(--y);margin-bottom:6px}
+
+/* 8 diferenciais */
+#s-dif{background:var(--y);color:var(--k)}
+#s-dif .stripes{right:-120px;top:-60px;width:520px;height:260px;transform:rotate(-8deg)}
+#s-dif .title{position:absolute;left:70px;top:230px}
+#s-dif .title small{display:block;font:800 40px var(--body);letter-spacing:.28em;margin-bottom:14px}
+#s-dif .title .h{font-size:150px}
+.rows{position:absolute;left:70px;right:60px;top:690px;display:flex;flex-direction:column;gap:46px}
+.row{display:flex;align-items:center;gap:40px}
+.row .ic{flex:none;width:190px;height:190px;border-radius:50%;background:var(--k);display:grid;place-items:center}
+.row .ic svg{width:104px;height:104px;fill:none;stroke:var(--y);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.row .h{font-size:84px;line-height:.95}
+.row .h small{display:block;font:700 34px var(--body);text-transform:none;margin-top:10px;color:#3a3200}
+
+/* 9 equipe */
+#s-team .bg{background-image:url(assets/img/equipe.jpg);background-position:55% center}
+#s-team .shade{background:linear-gradient(180deg,rgba(0,0,0,0) 46%,rgba(0,0,0,.92) 100%)}
+#s-team .txt{position:absolute;left:70px;right:70px;bottom:230px}
+#s-team .h{font-size:182px}
+#s-team p{font:800 54px var(--body);color:var(--y);margin-top:22px}
+
+/* 10 final */
+#s-end{background:var(--k)}
+#s-end .glow{position:absolute;left:50%;top:30%;width:1500px;height:1500px;margin:-750px 0 0 -750px;background:radial-gradient(circle,rgba(255,221,33,.26),rgba(255,221,33,0) 60%)}
+#s-end .st1{left:-160px;top:-70px;width:1500px;height:130px;transform:rotate(-8deg)}
+#s-end .logo{position:absolute;left:115px;top:300px;width:850px}
+#s-end .bio{position:absolute;left:0;right:0;top:720px;text-align:center}
+#s-end .bio .h{font-size:92px}
+#s-end .bio .y{color:var(--y)}
+.cta{position:absolute;left:90px;right:90px;top:1000px;height:200px;border-radius:100px;background:var(--y);color:var(--k);display:flex;align-items:center;justify-content:center;gap:30px}
+.cta svg{width:96px;height:96px;fill:var(--k)}
+.cta .h{font-size:100px;line-height:1}
+.cta-l{position:absolute;left:0;right:0;top:1230px;text-align:center;font:800 40px var(--body);letter-spacing:.24em;color:var(--y)}
+.info{position:absolute;left:90px;right:90px;top:1370px;display:flex;flex-direction:column;gap:30px}
+.info div{display:flex;align-items:center;gap:26px;font:700 44px var(--body)}
+.info svg{flex:none;width:62px;height:62px;fill:none;stroke:var(--y);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* sobreposições */
+#wipe{position:absolute;left:-700px;top:-300px;width:2500px;height:2600px;transform:translateX(-2600px) rotate(12deg);pointer-events:none;z-index:40}
+#wipe .a{position:absolute;inset:0 220px 0 0;background:var(--y)}
+#wipe .b{position:absolute;top:0;bottom:0;right:0;width:220px;background:var(--k)}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:41;pointer-events:none}
+#vig{position:absolute;inset:0;z-index:39;pointer-events:none;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 60%,rgba(0,0,0,.35) 100%)}
+#bar{position:absolute;left:0;top:0;height:10px;width:100%;background:var(--y);transform-origin:0 50%;transform:scaleX(0);z-index:42}
+
+/* player (apenas na prévia no navegador) */
+#play{position:fixed;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.55);z-index:99;border:0;cursor:pointer;color:#fff;font:800 22px var(--body);letter-spacing:.12em}
+#play span{display:flex;flex-direction:column;align-items:center;gap:18px}
+#play i{width:120px;height:120px;border-radius:50%;background:var(--y);display:grid;place-items:center}
+#play i::after{content:"";margin-left:10px;border-left:38px solid var(--k);border-top:24px solid transparent;border-bottom:24px solid transparent}
+body.render #play{display:none}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage"><div id="cam">
+
+  <!-- 1. Gancho -->
+  <section class="scene" id="s-hook">
+    <div class="bg"></div>
+    <div class="t q1"><small class="mask"><span>VAI</span></small><span class="h big mask"><span>CONSTRUIR?</span></span></div>
+    <div class="q2"><small class="mask"><span>OU VAI</span></small><span class="h big mask"><span>REFORMAR?</span></span></div>
+  </section>
+
+  <!-- 2. Logo -->
+  <section class="scene" id="s-logo">
+    <div class="glow"></div>
+    <div class="stripes st1"></div>
+    <div class="stripes st2"></div>
+    <img class="logo" src="assets/img/logo.png" alt="Da Rota Home Center">
+    <div class="tag">
+      <span class="h mask"><span>TUDO QUE VOCÊ PRECISA</span></span>
+      <span class="h mask l2"><span>PARA A SUA CASA</span></span>
+    </div>
+  </section>
+
+  <!-- 3. Departamentos -->
+  <section class="scene dep" id="s-d1"><div class="bg"></div><div class="shade"></div><img class="bug" src="assets/img/logo.png" alt="">
+    <div class="num"><b>01</b> / 05</div>
+    <div class="label"><span class="h">MATERIAIS DE<br>CONSTRUÇÃO</span></div>
+    <p class="sub">Cimento, areia, tijolos, ferro e mais</p></section>
+  <section class="scene dep" id="s-d2"><div class="bg"></div><div class="shade"></div><img class="bug" src="assets/img/logo.png" alt="">
+    <div class="num"><b>02</b> / 05</div>
+    <div class="label"><span class="h">HIDRÁULICA</span></div>
+    <p class="sub">Tubos, conexões e acessórios</p></section>
+  <section class="scene dep" id="s-d3"><div class="bg"></div><div class="shade"></div><img class="bug" src="assets/img/logo.png" alt="">
+    <div class="num"><b>03</b> / 05</div>
+    <div class="label"><span class="h">ELÉTRICA</span></div>
+    <p class="sub">Fiação, lâmpadas e tomadas</p></section>
+  <section class="scene dep" id="s-d4"><div class="bg"></div><div class="shade"></div><img class="bug" src="assets/img/logo.png" alt="">
+    <div class="num"><b>04</b> / 05</div>
+    <div class="label"><span class="h">FERRAGENS</span></div>
+    <p class="sub">Pregos, parafusos, dobradiças e mais</p></section>
+  <section class="scene dep" id="s-d5"><div class="bg"></div><div class="shade"></div><img class="bug" src="assets/img/logo.png" alt="">
+    <div class="num"><b>05</b> / 05</div>
+    <div class="label"><span class="h">PISOS E<br>REVESTIMENTOS</span></div>
+    <p class="sub">Variedade para todos os estilos</p></section>
+
+  <!-- 4. Produtos -->
+  <section class="scene" id="s-prod">
+    <div class="band"></div>
+    <div class="title"><small class="mask"><span>BANHEIRO • COZINHA</span></small><span class="h mask"><span>ACABAMENTO</span></span><span class="h mask"><span>COMPLETO</span></span></div>
+    <div class="cards">
+      <div class="card"><img src="assets/img/ducha-acqua.jpg" alt=""><p>Ducha Acqua Duo<span>Lorenzetti</span></p></div>
+      <div class="card"><img src="assets/img/torneira-prima.png" alt=""><p>Torneira Prima Touch<span>Black • Zagonel</span></p></div>
+      <div class="card"><img src="assets/img/torneira-slim.png" alt=""><p>Torneira Slim<span>Hydra • Preta</span></p></div>
+      <div class="card"><img src="assets/img/ducha-quadrada.jpg" alt=""><p>Ducha Fit Quadrada<span>Cano inox</span></p></div>
+    </div>
+    <div class="sticker"><span class="h"><small>PROMOÇÕES</small>DO<br>MÊS</span></div>
+    <div class="marquee">Iluminação<i>•</i>Decoração<i>•</i>Banheiras e Spas<i>•</i>Cozinha<i>•</i>Outlet<i>•</i>Banheiro<i>•</i>Iluminação<i>•</i>Decoração<i>•</i>Banheiras e Spas<i>•</i>Cozinha</div>
+  </section>
+
+  <!-- 5. Estoque -->
+  <section class="scene" id="s-fork">
+    <div class="bg"></div><div class="shade"></div><img class="bug" src="assets/img/logo.png" alt="">
+    <div class="txt">
+      <span class="h mask"><span>SEU PEDIDO</span></span>
+      <span class="h mask"><span class="y">SEPARADO COM</span></span>
+      <span class="h mask"><span class="y">AGILIDADE</span></span>
+      <p class="mask"><span>Material para todas as etapas da obra</span></p>
+    </div>
+  </section>
+
+  <!-- 6. Entrega -->
+  <section class="scene" id="s-truck">
+    <div class="sun"></div>
+    <svg class="city" viewBox="0 0 4000 420" preserveAspectRatio="none" aria-hidden="true">
+      <g fill="#0A0A0A" opacity=".9">
+        <rect x="0" y="180" width="160" height="240"/><rect x="170" y="90" width="120" height="330"/><rect x="300" y="230" width="200" height="190"/><rect x="510" y="140" width="110" height="280"/><polygon points="630,420 630,230 720,170 810,230 810,420"/><rect x="830" y="60" width="140" height="360"/><rect x="980" y="200" width="220" height="220"/><rect x="1210" y="120" width="120" height="300"/><polygon points="1340,420 1340,250 1440,190 1540,250 1540,420"/><rect x="1550" y="160" width="170" height="260"/><rect x="1730" y="40" width="130" height="380"/><rect x="1870" y="220" width="210" height="200"/>
+        <rect x="2090" y="180" width="160" height="240"/><rect x="2260" y="90" width="120" height="330"/><rect x="2390" y="230" width="200" height="190"/><rect x="2600" y="140" width="110" height="280"/><polygon points="2720,420 2720,230 2810,170 2900,230 2900,420"/><rect x="2920" y="60" width="140" height="360"/><rect x="3070" y="200" width="220" height="220"/><rect x="3300" y="120" width="120" height="300"/><polygon points="3430,420 3430,250 3530,190 3630,250 3630,420"/><rect x="3640" y="160" width="170" height="260"/><rect x="3820" y="40" width="130" height="380"/>
+      </g>
+      <g fill="#FFDD21" opacity=".75">
+        <rect x="195" y="130" width="22" height="30"/><rect x="245" y="130" width="22" height="30"/><rect x="195" y="190" width="22" height="30"/><rect x="860" y="100" width="22" height="30"/><rect x="920" y="100" width="22" height="30"/><rect x="860" y="170" width="22" height="30"/><rect x="1760" y="90" width="22" height="30"/><rect x="1810" y="160" width="22" height="30"/>
+        <rect x="2285" y="130" width="22" height="30"/><rect x="2335" y="190" width="22" height="30"/><rect x="2950" y="100" width="22" height="30"/><rect x="3010" y="170" width="22" height="30"/><rect x="3850" y="90" width="22" height="30"/><rect x="3900" y="160" width="22" height="30"/>
+      </g>
+    </svg>
+    <div class="ground"></div><div class="curb"></div><div class="dashes"></div>
+    <!-- obra/casa do cliente -->
+    <svg id="site" viewBox="0 0 470 520" aria-hidden="true">
+      <polygon points="20,250 235,70 450,250" fill="#0A0A0A"/>
+      <rect x="55" y="240" width="360" height="280" fill="#0A0A0A"/>
+      <rect x="95" y="300" width="100" height="100" fill="#FFDD21"/><line x1="145" y1="300" x2="145" y2="400" stroke="#0A0A0A" stroke-width="8"/><line x1="95" y1="350" x2="195" y2="350" stroke="#0A0A0A" stroke-width="8"/>
+      <rect x="265" y="330" width="100" height="190" fill="#FFDD21"/>
+      <rect x="320" y="110" width="44" height="90" fill="#0A0A0A"/>
+    </svg>
+    <!-- caminhão Da Rota -->
+    <svg id="truck" viewBox="0 0 640 330" aria-hidden="true">
+      <g class="tbody">
+        <rect x="0" y="10" width="420" height="230" rx="10" fill="#FFDD21" stroke="#0A0A0A" stroke-width="8"/>
+        <rect x="18" y="28" width="384" height="12" fill="#0A0A0A" opacity=".12"/>
+        <text x="210" y="148" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="104" fill="#0A0A0A">DA ROTA</text>
+        <text x="210" y="196" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="800" font-size="30" letter-spacing="9" fill="#0A0A0A">HOME CENTER</text>
+        <path d="M432 70 H540 Q560 70 572 90 L622 170 Q630 182 630 196 V250 H432 Z" fill="#0A0A0A"/>
+        <path d="M452 90 H534 Q546 90 553 102 L590 166 H452 Z" fill="#9ED3FF"/>
+        <rect x="604" y="214" width="30" height="22" rx="4" fill="#FFDD21"/>
+        <rect x="0" y="236" width="634" height="24" fill="#0A0A0A"/>
+        <rect x="470" y="186" width="40" height="8" rx="4" fill="#555"/>
+      </g>
+      <g class="wheel"><circle cx="110" cy="268" r="54" fill="#0A0A0A"/><circle cx="110" cy="268" r="26" fill="#bbb"/><rect x="106" y="226" width="8" height="84" fill="#0A0A0A"/><rect x="68" y="264" width="84" height="8" fill="#0A0A0A"/></g>
+      <g class="wheel"><circle cx="300" cy="268" r="54" fill="#0A0A0A"/><circle cx="300" cy="268" r="26" fill="#bbb"/><rect x="296" y="226" width="8" height="84" fill="#0A0A0A"/><rect x="258" y="264" width="84" height="8" fill="#0A0A0A"/></g>
+      <g class="wheel"><circle cx="530" cy="268" r="54" fill="#0A0A0A"/><circle cx="530" cy="268" r="26" fill="#bbb"/><rect x="526" y="226" width="8" height="84" fill="#0A0A0A"/><rect x="488" y="264" width="84" height="8" fill="#0A0A0A"/></g>
+    </svg>
+    <div class="head"><span class="h mask"><span>ENTREGA</span></span></div>
+    <div class="pills"><span class="pill p1">DIRETO NA SUA OBRA</span><span class="pill p2">PRAZO CUMPRIDO À RISCA</span></div>
+    <div class="stamp">ENTREGUE ✓</div>
+  </section>
+
+  <!-- 7. Depoimentos -->
+  <section class="scene" id="s-chat">
+    <div class="bg"></div>
+    <div class="title"><span class="h mask"><span>QUEM COMPRA,</span></span><span class="h mask"><span class="y">APROVA!</span></span></div>
+    <div class="phone">
+      <div class="bar"><div class="av"><img src="assets/img/logo.png" alt=""></div><div class="nm">Da Rota Home Center<small>online</small></div></div>
+      <div class="msgs">
+        <div class="msg out m1">Material já está entregue! <span class="e">👍</span><time>15:19 ✓✓</time></div>
+        <div class="msg in m2"><span class="who">Cliente</span>Obrigado pela atenção e agilidade <span class="e">🙌</span><time>15:21</time></div>
+        <div class="msg in m3"><span class="who">Cliente</span>Baita equipe!!! Material top, compromisso no que faz! <span class="e">👏</span><time>06:20</time></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Diferenciais -->
+  <section class="scene" id="s-dif">
+    <div class="stripes"></div>
+    <div class="title"><small class="mask"><span>POR QUE COMPRAR NA</span></small><span class="h mask"><span>DA ROTA?</span></span></div>
+    <div class="rows">
+      <div class="row"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 2.1 3.3-.4.9 3.2 2.9 1.7-1.2 3.1 1.2 3.1-2.9 1.7-.9 3.2-3.3-.4L12 22l-2.6-2.1-3.3.4-.9-3.2-2.9-1.7 1.2-3.1-1.2-3.1 2.9-1.7.9-3.2 3.3.4z"/><path d="M8.5 12.2l2.4 2.4 4.6-4.8"/></svg></div><span class="h">MATERIAIS DE<br>ALTA QUALIDADE</span></div>
+      <div class="row"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.4 2.7-6 6-6s6 2.6 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.9.1 5 2.4 5 5.3"/></svg></div><span class="h">TIME PRONTO PRA<br>TE AJUDAR</span></div>
+      <div class="row"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div><span class="h">ENTREGA<br>NO PRAZO</span></div>
+      <div class="row"><div class="ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 9.5h19M6 15h4"/></svg></div><span class="h">PREÇO BOM E<br>VÁRIAS FORMAS<br>DE PAGAMENTO</span></div>
+    </div>
+  </section>
+
+  <!-- 9. Equipe -->
+  <section class="scene" id="s-team">
+    <div class="bg"></div><div class="shade"></div><img class="bug" src="assets/img/logo.png" alt="">
+    <div class="txt">
+      <span class="h mask"><span>CONTE COM</span></span>
+      <span class="h mask"><span>A GENTE!</span></span>
+      <p class="mask"><span>Para a sua obra ser um sucesso.</span></p>
+    </div>
+  </section>
+
+  <!-- 10. Final -->
+  <section class="scene" id="s-end">
+    <div class="glow"></div>
+    <div class="stripes st1"></div>
+    <img class="logo" src="assets/img/logo.png" alt="Da Rota Home Center">
+    <div class="bio"><span class="h mask"><span>TUDO PARA SUA CASA</span></span><span class="h mask"><span class="y">VOCÊ ENCONTRA AQUI!</span></span></div>
+    <div class="cta">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.4 3.9c1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+      <span class="h">(51) 99788-7758</span>
+    </div>
+    <div class="cta-l">PEÇA SEU ORÇAMENTO</div>
+    <div class="info">
+      <div><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>RSC 453, km 40 • Estrela/RS</div>
+      <div><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="#FFDD21"/></svg>@darotahomecenter</div>
+      <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>darotahomecenter.com.br</div>
+    </div>
+  </section>
+
+</div>
+<div id="vig"></div>
+<div id="wipe"><div class="a"></div><div class="b"></div></div>
+<div id="flash"></div>
+<div id="bar"></div>
+</div></div>
+
+<button id="play" aria-label="Reproduzir"><span><i></i>PLAY • 30s COM SOM</span></button>
+<audio id="music" src="assets/trilha.mp3" preload="auto"></audio>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script>
+(function(){
+  const DUR = 30;
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const render = /[?&]render/.test(location.search);
+  if (render) document.body.classList.add('render');
+
+  // ajusta o palco 1080x1920 à janela na prévia
+  function fit(){
+    const k = render ? 1 : Math.min(innerWidth/1080, innerHeight/1920);
+    $('#viewport').style.transform = 'scale(' + k + ')';
+    $('#viewport').style.margin = render ? '0' : ((1920*k-1920)/2) + 'px ' + ((1080*k-1080)/2) + 'px';
+  }
+  fit(); addEventListener('resize', fit);
+
+  gsap.defaults({ease:'power3.out'});
+  const tl = gsap.timeline({paused:true});
+  const scenes = $$('.scene');
+
+  // mostra a cena exatamente no intervalo [a, b)
+  function show(sel, a, b){
+    tl.set(sel, {visibility:'visible'}, a);
+    if (b < DUR) tl.set(sel, {visibility:'hidden'}, b);
+  }
+  // varredura diagonal amarela; troca de cena acontece no meio (t)
+  function wipe(t, dur){
+    dur = dur || .42;
+    tl.fromTo('#wipe', {x:-2600}, {x:-280, duration:dur/2, ease:'power2.in'}, t - dur/2)
+      .to('#wipe', {x:2600, duration:dur/2, ease:'power2.out'}, t);
+  }
+  function flash(t, a){ tl.fromTo('#flash', {opacity:a||.9}, {opacity:0, duration:.35, ease:'power1.out', immediateRender:false}, t); }
+  function shake(t, amp){
+    amp = amp || 18;
+    tl.to('#cam', {keyframes:[{x:amp,y:-amp*.6},{x:-amp*.8,y:amp*.5},{x:amp*.5,y:amp*.3},{x:-amp*.3,y:-amp*.2},{x:0,y:0}], duration:.32, ease:'none'}, t);
+  }
+  // revelação de texto por máscara
+  function rise(sel, t, stag){
+    tl.fromTo(sel, {yPercent:140}, {yPercent:0, duration:.5, stagger:stag||.08, ease:'power4.out'}, t);
+  }
+
+  // barra de progresso no topo
+  tl.fromTo('#bar', {scaleX:0}, {scaleX:1, duration:DUR, ease:'none'}, 0);
+
+  /* 1. GANCHO 0–2s */
+  show('#s-hook', 0, 2);
+  tl.fromTo('#s-hook .bg', {scale:1.15}, {scale:1, duration:2, ease:'none'}, 0);
+  rise('#s-hook .q1 .mask>span', .05, .1);
+  tl.to('#s-hook .q1 .mask>span', {yPercent:-140, duration:.3, ease:'power3.in', stagger:.05}, .9);
+  rise('#s-hook .q2 .mask>span', 1.15, .1);
+  tl.fromTo('#s-hook .q2 .big', {scale:.9, transformOrigin:'0 50%'}, {scale:1, duration:.8}, 1.15);
+
+  /* 2. LOGO 2–4s (drop) */
+  show('#s-logo', 2, 4);
+  flash(2, 1); shake(2, 26);
+  tl.fromTo('#s-logo .logo', {scale:2.6, opacity:0, rotation:-6}, {scale:1, opacity:1, rotation:0, duration:.55, ease:'expo.out'}, 2);
+  tl.to('#s-logo .logo', {scale:1.05, duration:1.45, ease:'none'}, 2.55);
+  tl.fromTo('#s-logo .glow', {scale:.4, opacity:0}, {scale:1, opacity:1, duration:.8}, 2);
+  tl.fromTo('#s-logo .st1', {x:-1600}, {x:0, duration:.5, ease:'expo.out'}, 2.05);
+  tl.fromTo('#s-logo .st2', {x:1600}, {x:0, duration:.5, ease:'expo.out'}, 2.05);
+  tl.to(['#s-logo .st1','#s-logo .st2'], {backgroundPositionX:'+=260', duration:1.9, ease:'none'}, 2.05);
+  rise('#s-logo .tag .mask>span', 2.5, .25);
+
+  /* 3. DEPARTAMENTOS 4–9s (um por segundo) */
+  const deps = ['#s-d1','#s-d2','#s-d3','#s-d4','#s-d5'];
+  deps.forEach((d, i) => {
+    const t = 4 + i;
+    show(d, t, t + 1);
+    const dir = i % 2 ? 1 : -1;
+    tl.fromTo(d + ' .bg', {scale:1.28, xPercent:dir*3}, {scale:1.08, xPercent:-dir*2, duration:1.25, ease:'none'}, t - .02);
+    tl.fromTo(d + ' .label', {scaleX:0}, {scaleX:1, duration:.32, ease:'expo.out'}, t + .08);
+    tl.fromTo(d + ' .label .h', {xPercent:-30, opacity:0}, {xPercent:0, opacity:1, duration:.4}, t + .16);
+    tl.fromTo(d + ' .sub', {y:40, opacity:0}, {y:0, opacity:1, duration:.4}, t + .26);
+    tl.fromTo(d + ' .num', {opacity:0, x:-30}, {opacity:1, x:0, duration:.3}, t + .05);
+  });
+  wipe(4); wipe(6, .36); wipe(8, .36);
+  // cortes "push" nos segundos ímpares
+  [5, 7].forEach(t => {
+    tl.fromTo(deps[t-4], {yPercent:100}, {yPercent:0, duration:.3, ease:'power3.out'}, t);
+    tl.set(deps[t-5], {visibility:'visible'}, t);
+    tl.fromTo(deps[t-5], {scale:1, opacity:1}, {scale:.88, opacity:.25, duration:.3, ease:'power2.in', immediateRender:false}, t);
+    tl.set(deps[t-5], {visibility:'hidden'}, t + .3);
+  });
+
+  /* 4. PRODUTOS 9–12s */
+  show('#s-prod', 9, 12);
+  wipe(9);
+  tl.fromTo('#s-prod .band', {x:1600}, {x:0, duration:.6, ease:'expo.out'}, 9);
+  rise('#s-prod .title .mask>span', 9.05, .08);
+  tl.fromTo('.card', {y:900, rotation:i => [-14, 10, -8, 12][i], scale:.8}, {y:0, rotation:i => [-3, 2, 2, -2][i], scale:1, duration:.55, ease:'back.out(1.5)', stagger:.25}, 9.25);
+  tl.fromTo('.sticker', {scale:0, rotation:-200}, {scale:1, rotation:-12, duration:.6, ease:'back.out(2.2)'}, 10.3);
+  tl.to('.sticker', {rotation:8, duration:1.2, ease:'sine.inOut'}, 10.9);
+  tl.fromTo('.marquee', {x:0}, {x:-1500, duration:3, ease:'none'}, 9);
+  tl.to('.card', {y:-60, duration:1, ease:'sine.inOut', stagger:.05}, 10.6);
+
+  /* 5. ESTOQUE 12–14s */
+  show('#s-fork', 12, 14);
+  flash(12, .85); shake(12, 16);
+  tl.fromTo('#s-fork .bg', {scale:1.45}, {scale:1.15, duration:2.1, ease:'power2.out'}, 12);
+  rise('#s-fork .txt .mask>span', 12.12, .14);
+
+  /* 6. ENTREGA 14–18s */
+  show('#s-truck', 14, 18);
+  wipe(14);
+  rise('#s-truck .head .mask>span', 14.1);
+  tl.fromTo('#s-truck .p1', {clipPath:'inset(0 100% 0 0)'}, {clipPath:'inset(0 0% 0 0)', duration:.45, ease:'power2.out'}, 14.35);
+  tl.set('#s-truck .p2', {clipPath:'inset(0 100% 0 0)'}, 14);
+  // mundo rolando (deslocamento contínuo, desacelera ao chegar)
+  tl.fromTo('#s-truck .dashes', {x:0}, {x:-2080, duration:3.1, ease:'none'}, 14);
+  tl.fromTo('#s-truck .city', {x:0}, {x:-820, duration:3.3, ease:'power1.out'}, 14);
+  tl.fromTo('#s-truck .sun', {x:0}, {x:-90, duration:4, ease:'none'}, 14);
+  tl.fromTo('#site', {x:900}, {x:0, duration:1.1, ease:'power2.out'}, 16.0);
+  tl.fromTo('#s-truck .dashes', {x:-2080}, {x:-2340, duration:.9, ease:'power2.out', immediateRender:false}, 17.1);
+  tl.fromTo('#truck', {x:-1100}, {x:0, duration:.75, ease:'back.out(1.2)'}, 14.05);
+  tl.fromTo('#truck .tbody', {y:0}, {y:-6, duration:.12, repeat:21, yoyo:true, ease:'sine.inOut'}, 14);
+  $$('#truck .wheel').forEach((w, i) => {
+    const o = [110, 300, 530][i] + ' 268';
+    tl.fromTo(w, {rotation:0, svgOrigin:o}, {rotation:1800, svgOrigin:o, duration:3.1, ease:'none'}, 14);
+    tl.fromTo(w, {rotation:1800, svgOrigin:o}, {rotation:1940, svgOrigin:o, duration:.8, ease:'power2.out', immediateRender:false}, 17.1);
+  });
+  tl.fromTo('#truck', {x:0}, {x:-220, duration:1.1, ease:'power2.inOut', immediateRender:false}, 16.0);
+  tl.to('#s-truck .p1', {clipPath:'inset(0 0 0 100%)', duration:.3, ease:'power2.in'}, 16.9);
+  tl.to('#s-truck .p2', {clipPath:'inset(0 0% 0 0)', duration:.45, ease:'power2.out'}, 17.15);
+  tl.fromTo('.stamp', {scale:3, opacity:0, rotation:-20}, {scale:1, opacity:1, rotation:-9, duration:.3, ease:'power4.in'}, 17.0);
+  shake(17.3, 14);
+
+  /* 7. DEPOIMENTOS 18–20s */
+  show('#s-chat', 18, 20);
+  wipe(18, .36);
+  rise('#s-chat .title .mask>span', 18.05, .1);
+  tl.fromTo('.phone', {y:900, rotation:6}, {y:0, rotation:0, duration:.55, ease:'expo.out'}, 18.05);
+  tl.fromTo('.msg.m1', {scale:0, transformOrigin:'100% 0'}, {scale:1, duration:.35, ease:'back.out(2)'}, 18.4);
+  tl.fromTo('.msg.m2', {scale:0, transformOrigin:'0 0'}, {scale:1, duration:.35, ease:'back.out(2)'}, 18.85);
+  tl.fromTo('.msg.m3', {scale:0, transformOrigin:'0 0'}, {scale:1, duration:.35, ease:'back.out(2)'}, 19.3);
+  tl.fromTo('#s-chat .bg', {scale:1.1}, {scale:1.2, duration:2, ease:'none'}, 18);
+
+  /* 8. DIFERENCIAIS 20–24s */
+  show('#s-dif', 20, 24);
+  flash(20, .7);
+  tl.fromTo('#s-dif', {clipPath:'circle(0% at 50% 50%)'}, {clipPath:'circle(75% at 50% 50%)', duration:.45, ease:'power3.out'}, 20);
+  tl.fromTo('#s-dif .stripes', {x:700}, {x:0, duration:.6, ease:'expo.out'}, 20.1);
+  tl.to('#s-dif .stripes', {backgroundPositionX:'+=300', duration:3.3, ease:'none'}, 20.1);
+  rise('#s-dif .title .mask>span', 20.1, .1);
+  tl.fromTo('.row', {x:-1100}, {x:0, duration:.45, ease:'expo.out', stagger:.5}, 20.5);
+  tl.fromTo('.row .ic', {scale:0, rotation:-90}, {scale:1, rotation:0, duration:.45, ease:'back.out(2)', stagger:.5}, 20.6);
+  tl.to('.row .ic', {scale:1.12, duration:.12, yoyo:true, repeat:1, stagger:.5}, 22.6);
+
+  /* 9. EQUIPE 24–26s */
+  show('#s-team', 24, 26);
+  wipe(24);
+  tl.fromTo('#s-team .bg', {scale:1.3}, {scale:1.05, duration:2.1, ease:'power2.out'}, 24);
+  rise('#s-team .txt .mask>span', 24.15, .14);
+
+  /* 10. FINAL 26–30s */
+  show('#s-end', 26, DUR + 1);
+  flash(26, 1); shake(26, 22);
+  tl.fromTo('#s-end .logo', {scale:2.2, opacity:0}, {scale:1, opacity:1, duration:.5, ease:'expo.out'}, 26);
+  tl.fromTo('#s-end .glow', {scale:.3, opacity:0}, {scale:1, opacity:1, duration:.8}, 26);
+  tl.fromTo('#s-end .st1', {x:-1700}, {x:0, duration:.5, ease:'expo.out'}, 26.05);
+  tl.to('#s-end .st1', {backgroundPositionX:'+=520', duration:3.9, ease:'none'}, 26.05);
+  rise('#s-end .bio .mask>span', 26.4, .14);
+  tl.fromTo('.cta', {scale:0}, {scale:1, duration:.5, ease:'back.out(1.8)'}, 26.9);
+  tl.to('.cta', {scale:1.05, duration:.25, yoyo:true, repeat:5, ease:'sine.inOut'}, 27.5);
+  tl.fromTo('.cta-l', {opacity:0, y:20}, {opacity:1, y:0, duration:.4}, 27.2);
+  tl.fromTo('.info div', {opacity:0, x:-60}, {opacity:1, x:0, duration:.45, stagger:.18}, 27.4);
+  tl.to('#s-end .logo', {scale:1.04, duration:3.5, ease:'none'}, 26.5);
+
+  tl.set({}, {}, DUR);
+
+  // API usada pelo renderizador (quadro a quadro, determinística)
+  window.__DUR = DUR;
+  window.seek = t => { tl.time(Math.min(t, DUR), false); };
+  window.ready = Promise.all([
+    document.fonts.ready,
+    ...$$('img').map(i => i.decode().catch(() => {})),
+    ...['obra-silhueta','obra-ferragem','conexoes','fios','loja-pisos','empilhadeira','fachada','equipe'].map(n => new Promise(r => { const im = new Image(); im.onload = im.onerror = r; im.src = 'assets/img/' + n + '.jpg'; }))
+  ]);
+  seek(0);
+
+  // prévia com áudio sincronizado
+  if (!render) {
+    const audio = $('#music'), btn = $('#play');
+    let raf;
+    const loop = () => { seek(audio.currentTime); if (!audio.paused) raf = requestAnimationFrame(loop); };
+    btn.addEventListener('click', () => {
+      btn.style.display = 'none';
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+      const t0 = performance.now();
+      const fallback = () => { const t = (performance.now() - t0) / 1000; seek(t); if (t < DUR) requestAnimationFrame(fallback); else btn.style.display = ''; };
+      if (audio.readyState >= 2 && !audio.error) { cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); } else requestAnimationFrame(fallback);
+    });
+    audio.addEventListener('ended', () => { seek(DUR); btn.style.display = ''; });
+  }
+})();
+</script>
+</body>
+</html>
